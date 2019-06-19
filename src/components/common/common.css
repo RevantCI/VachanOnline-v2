@@ -1,0 +1,19 @@
+.searchIcon {
+    display:inline;
+}
+
+.searchBox input
+{
+    width: 300px;
+    border: none;
+    padding-top: 9px;
+    padding-left: 12px;
+    outline: none;
+}
+.searchBox
+{
+    float:right;
+    width: 340px;
+    background-color:#fff;
+    margin-top: 5px;
+}
