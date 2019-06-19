@@ -22,7 +22,7 @@
 .carousel .slide img {
   width: 100%;
   vertical-align: top;
-  height: 610px;
+  height: 520px;
   border: 0;
 }
 .carousel .thumb
@@ -67,14 +67,19 @@ background-color:#1480d8;
 border: #0f3b5e;
 padding: 6px 15px;
 }
-.languageBar ul {
+.languageBar{
   position: absolute;
   z-index: 9999;
   top: 80px;
+  display: flex;
+  width: 100%;
+}
+.languageBar ul {
   color: #fff;    
   background-color: #0f3b5e;
-  margin-left: 70px;
   padding: 8px 0;
+  margin: auto;
+  display: inline-block;
 }
 .languageBar ul li{
   display: inline;
