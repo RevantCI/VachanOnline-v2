@@ -1,5 +1,5 @@
 .carousel .slide .legend {
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   position: absolute;
   bottom: 30%;
   left: 50%;
@@ -12,11 +12,10 @@
   font-size: 36px;
   text-align: center;
   /* opacity: .0.8; */
-  transition: opacity .35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
 }
-.carousel .slide .legend
-{
-  background:none;
+.carousel .slide .legend {
+  background: none;
   opacity: 1;
 }
 .carousel .slide img {
@@ -25,95 +24,41 @@
   height: 520px;
   border: 0;
 }
-.carousel .thumb
-{
+.carousel .thumb {
   display: none;
 }
 .carousel .thumbs-wrapper {
   margin: 0px;
   overflow: hidden;
 }
-.carousel .carousel-status
-{
+.carousel .carousel-status {
   display: none;
 }
-.header
-{
+.header {
   background-color: rgba(0, 0, 0, 0.6);
   color: #ffffff;
-  
+
   position: absolute;
   z-index: 9999;
-  width:100%;
+  width: 100%;
   padding: 17px 30px;
   border-bottom: 1px solid #ddd;
 }
-.landing .logo
-{
-  
+.landing .logo {
   font-size: 30px;
 }
-.landing{
-  width:100%;
+.landing {
+  width: 100%;
 }
-.logButton
-{
+.logButton {
   float: right;
   margin-top: 5px;
 }
-.logButton .btn
-{
-background-color:#1480d8;
-border: #0f3b5e;
-padding: 6px 15px;
+.logButton .btn {
+  background-color: #1480d8;
+  border: #0f3b5e;
+  padding: 6px 15px;
 }
-.languageBar{
-  position: absolute;
-  z-index: 9999;
-  top: 80px;
-  display: flex;
+.fullWidth {
   width: 100%;
-}
-.languageBar ul {
-  color: #fff;    
-  background-color: #0f3b5e;
-  padding: 8px 0;
-  margin: auto;
-  display: inline-block;
-}
-.languageBar ul li{
-  display: inline;
-  padding: 0px 20px;
-  border-right: 1px solid #fff;
-}
-.languageBar ul li:last-child{
-  border-right: 0;
-}
-.aboutText{
-  font-size: 24px;
-  text-align: center;
-  width: 65%;
-  margin: auto;
-}
-.landingFooter{
-  background-color:#2275bb;
-  color: #fff;
-  padding: 5px 20px;
-  margin-top: 40px;
-  text-align: center;
-}
-.landingFooter div{
-   display: inline-block;
-}
-.fullWidth{
-  width:100%;
-}
-.footerLinks div
-{
-  border-right: 1px solid #fff;
-  padding:0px 10px;
-}
-.footerLinks div:last-child
-{
-  border-right: 0;
 }

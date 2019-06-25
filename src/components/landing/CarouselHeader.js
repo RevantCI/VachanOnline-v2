@@ -1,23 +1,120 @@
-import React, { Component } from 'react';
-import {Row , Col, Container} from 'react-bootstrap';
-import SearchBox from '../common/SearchBox';
-import LoginBtn from './LoginBtn';
-import LanguageBar from './LanguageBar';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import InputBase from "@material-ui/core/InputBase";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
 
-const CarouselHeader  =props=> {
-  let languages = ["English","Hindi","Marathi","Malayalam"];
-    return (
-        <div className="header">
-        <Row>
-          <Col md={4} ><div className="logo">Vachanonline</div></Col>
-          <Col md={6} >
-            <SearchBox placeholder="Search..."/> 
-          </Col>
-          <Col md={2}>
-            <LoginBtn label="Login"/>
-          </Col>
-        </Row>
-      </div>
-    )
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    position: "absolute",
+    top: 0,
+    display: "flex",
+    width: "100%"
+  },
+  appBar: {
+    background: "rgba(0,0,0,0.5)"
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1,
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block"
+    }
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    color: "inherit"
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: 200,
+      "&:focus": {
+        width: 240
+      }
+    }
+  },
+  button: {
+    margin: theme.spacing(1),
+    color: "white",
+    borderColor: "white"
+  }
+}));
+
+const CarouselHeader = props => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <AppBar className={classes.appBar} position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Open drawer"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h5" noWrap>
+            Vachanonline
+          </Typography>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+              inputProps={{ "aria-label": "Search" }}
+            />
+          </div>
+          <Button
+            size="small"
+            variant="otlined"
+            href="#outlined-buttons"
+            className={classes.button}
+          >
+            Login
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 };
 export default CarouselHeader;
