@@ -24,16 +24,6 @@
   height: 520px;
   border: 0;
 }
-.carousel .thumb {
-  display: none;
-}
-.carousel .thumbs-wrapper {
-  margin: 0px;
-  overflow: hidden;
-}
-.carousel .carousel-status {
-  display: none;
-}
 .header {
   background-color: rgba(0, 0, 0, 0.6);
   color: #ffffff;

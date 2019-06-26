@@ -4,7 +4,7 @@ import img1 from "./images/2.jpg";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import LanguageBar from "./LanguageBar";
-import BibleIndex from "../bibleIndex/BibleIndex";
+import BibleIndex from "../common/BibleIndex";
 import CarouselHeader from "./CarouselHeader";
 const ControlledCarousel = props => {
   let languages = [
@@ -32,7 +32,15 @@ const ControlledCarousel = props => {
       <div>
         <LanguageBar languages={languages} />
       </div>
-      <Carousel autoPlay>
+      <Carousel
+        emulateTouch
+        useKeyboardArrows
+        infiniteLoop
+        showThumbs={false}
+        showArrows={true}
+        showStatus={false}
+        autoPlay
+      >
         <div>
           <img src={img} alt="" />
           <p className="legend">

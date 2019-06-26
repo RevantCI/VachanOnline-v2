@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
+    marginRight: theme.spacing(15),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
@@ -70,7 +71,8 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
     color: "white",
-    borderColor: "white"
+    borderColor: "white",
+    backgroundColor: "#007bff"
   }
 }));
 
@@ -106,8 +108,8 @@ const CarouselHeader = props => {
           </div>
           <Button
             size="small"
-            variant="otlined"
-            href="#outlined-buttons"
+            variant="contained"
+            color="primary"
             className={classes.button}
           >
             Login
