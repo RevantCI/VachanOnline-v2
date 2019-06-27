@@ -12,7 +12,7 @@ const AboutUs = props => {
   const classes = useStyles();
   return (
     <Grid container justify="center">
-      <Grid item xs={7} justify="center">
+      <Grid item xs={7}>
         <Typography className={classes.aboutUs} variant="h5" gutterBottom>
           {props.aboutUs}
         </Typography>

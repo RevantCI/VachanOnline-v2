@@ -10,8 +10,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#2275bb",
     color: "#fff",
     padding: "5px 20px",
-    marginTop: 40,
+    marginTop: 30,
     textAlign: "center",
+    bottom: 0,
+    position: "fixed",
     "&div": {
       display: "inline-block",
       paddingTop: theme.spacing(3)
@@ -39,17 +41,19 @@ const LandingFooter = props => {
   const classes = useStyles();
   return (
     <Grid container className={classes.landingFooter}>
-      <Grid xs={12} md={4}>
-        {props.links.map(linkText => (
-          <Link className={classes.link}>{linkText} </Link>
+      <Grid item xs={12} md={4}>
+        {props.links.map((linkText, index) => (
+          <Link key={index} className={classes.link}>
+            {linkText}{" "}
+          </Link>
         ))}
       </Grid>
-      <Grid xs={12} md={5}>
+      <Grid item xs={12} md={5}>
         <Link>
           <Typography className={classes.text}>{props.copyright}</Typography>
         </Link>
       </Grid>
-      <Grid xs={12} md={3}>
+      <Grid item xs={12} md={3}>
         <Button
           variant="outlined"
           size="small"
