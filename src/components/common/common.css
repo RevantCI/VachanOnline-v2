@@ -1,47 +1,43 @@
 .searchIcon {
-    display:inline;
+  display: inline;
 }
 
-.searchBox input
-{
-    width: 300px;
-    border: none;
-    padding-top: 9px;
-    padding-left: 12px;
-    outline: none;
+.searchBox input {
+  width: 300px;
+  border: none;
+  padding-top: 9px;
+  padding-left: 12px;
+  outline: none;
 }
-.searchBox
-{
-    float:right;
-    width: 340px;
-    background-color:#fff;
-    margin-top: 5px;
+.searchBox {
+  float: right;
+  width: 340px;
+  background-color: #fff;
+  margin-top: 5px;
 }
-.container
-{
-    width: 100%;
-    display: flex;
+.container {
+  width: 100%;
+  display: flex;
 }
-.bibleIndex{
-    margin: auto;
-    position: relative;
-    bottom: 70px;
-    height: 100px;
-    background-color: #0f3b5d;
-    vertical-align: middle;
-    padding: 0px 30px;
+.bibleIndex {
+  margin: auto;
+  position: relative;
+  bottom: 70px;
+  height: 130px;
+  background-color: #0f3b5d;
+  vertical-align: middle;
+  padding: 0px 30px;
 }
-.bibleIndex div
-{
-    margin: 0;
-    position: relative;
-    top: 25%;
-    display: inline-block;
-    padding: 10px;
+.bibleIndex > div {
+  margin: 0;
+  position: relative;
+  top: 25%;
+  display: inline-block;
+  padding: 10px;
 }
-.bibleIndex h4{
-    color:#fff;
-    text-align: center;
-    font-size: 20px;
-    padding-top: 10px;
+.bibleIndex h4 {
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 10px;
 }

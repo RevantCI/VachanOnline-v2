@@ -1,15 +1,14 @@
 import React from "react";
+import Version from "./Version";
 
 const BibleIndex = ({ versions, books, chapters, label }) => {
   return (
     <div className="container">
       <div className="bibleIndex">
         <h4>Read Bible</h4>
-        <select>
-          {Object.keys(versions).map(key => (
-            <option value={key}> {versions[key]} </option>
-          ))}
-        </select>
+        <div>
+          <Version versions={versions} />
+        </div>
         <select>
           {Object.keys(books).map(key => (
             <option value={key}> {books[key]} </option>

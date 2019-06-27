@@ -21,7 +21,7 @@ const ControlledCarousel = props => {
     "తెలుగు",
     "اردو"
   ];
-  let versions = ["NIV", "KJV"];
+  let versions = ["", "NIV", "KJV"];
   let books = ["Mathew", "Mark", "Luke", "John"];
   let chapters = ["1", "2", "3"];
   let label = "Read";
