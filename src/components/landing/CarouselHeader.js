@@ -2,13 +2,10 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import Drawer from "@material-ui/core/Drawer";
+import Typography from "@material-ui/core/Typography";
 import LandingMenu from "./LandingMenu";
 
 const useStyles = makeStyles(theme => ({
@@ -21,9 +18,6 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     background: "rgba(0,0,0,0.5)"
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
   },
   title: {
     flexGrow: 1,
@@ -78,36 +72,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CarouselHeader = ({ menus }) => {
+const CarouselHeader = ({ menus, aboutUs }) => {
   const classes = useStyles();
-  const [menu, setMenu] = React.useState(false);
-
-  const toggleDrawer = open => event => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setMenu(open);
-  };
   return (
     <>
-      <Drawer open={menu} onClose={toggleDrawer(false)}>
-        <LandingMenu toggleDrawer={toggleDrawer} menus={menus} />
-      </Drawer>
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <IconButton
-              onClick={toggleDrawer(true)}
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
+            <LandingMenu menus={menus} aboutUs={aboutUs} />
             <Typography className={classes.title} variant="h5" noWrap>
               Vachanonline
             </Typography>

@@ -31,9 +31,11 @@ const Landing = () => {
   let chapters = ["", "1", "2", "3"];
   let label = "Read";
   let menus = ["About us", "Contact us", "Feedback", "Subscribe"];
+  let aboutUs =
+    "VachanOnline.com is the premier Bible study website in Indian languages. It is part of The Vachan Project to provide free access to digital scripture engagement resources. It is an initiative of Friends of Agape (FOA), USA. The content herein is not for reuse or redistribution in any other format or platform without explicit permission.";
   return (
     <Grid>
-      <CarouselHeader menus={menus} />
+      <CarouselHeader menus={menus} aboutUs={aboutUs} />
       <LanguageBar languages={languages} />
       <Banner />
       <BibleIndex
