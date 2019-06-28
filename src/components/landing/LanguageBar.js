@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
   languageBar: {
     position: "absolute",
-    zIndex: 9999,
+    zIndex: 99,
     top: 64,
     width: "100%",
     flexGrow: 1

@@ -6,7 +6,8 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
-import LandingMenu from "./LandingMenu";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,14 +73,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CarouselHeader = ({ menus, aboutUs }) => {
+const PageHeader = ({ toggleDrawer }) => {
   const classes = useStyles();
   return (
     <>
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <LandingMenu menus={menus} aboutUs={aboutUs} />
+            <IconButton
+              onClick={toggleDrawer(true)}
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Open drawer"
+            >
+              <MenuIcon />
+            </IconButton>
             <Typography className={classes.title} variant="h5" noWrap>
               Vachanonline
             </Typography>
@@ -110,4 +119,4 @@ const CarouselHeader = ({ menus, aboutUs }) => {
     </>
   );
 };
-export default CarouselHeader;
+export default PageHeader;

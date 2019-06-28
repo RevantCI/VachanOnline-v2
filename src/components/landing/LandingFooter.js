@@ -41,7 +41,12 @@ const LandingFooter = props => {
     <Grid container className={classes.landingFooter}>
       <Grid xs={12} md={4}>
         {props.links.map(linkText => (
-          <Link className={classes.link}>{linkText} </Link>
+          <Link
+            className={classes.link}
+            onClick={props.toggleModal("aboutUs", true)}
+          >
+            {linkText}{" "}
+          </Link>
         ))}
       </Grid>
       <Grid xs={12} md={5}>
