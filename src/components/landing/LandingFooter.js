@@ -39,22 +39,23 @@ const LandingFooter = props => {
   const classes = useStyles();
   return (
     <Grid container className={classes.landingFooter}>
-      <Grid xs={12} md={4}>
+      <Grid item xs={12} md={4}>
         {props.links.map(linkText => (
           <Link
             className={classes.link}
+            key={linkText}
             onClick={props.toggleModal("aboutUs", true)}
           >
             {linkText}{" "}
           </Link>
         ))}
       </Grid>
-      <Grid xs={12} md={5}>
+      <Grid item xs={12} md={5}>
         <Link>
           <Typography className={classes.text}>{props.copyright}</Typography>
         </Link>
       </Grid>
-      <Grid xs={12} md={3}>
+      <Grid item xs={12} md={3}>
         <Button
           variant="outlined"
           size="small"

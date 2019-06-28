@@ -58,6 +58,7 @@ const Landing = () => {
     "scripture engagement resources. It is an initiative of Friends of Agape " +
     "(FOA), USA. The content herein is not for reuse or redistribution" +
     " in any other format or platform without explicit permission.";
+  let contactUs = "vachanonline";
   return (
     <Grid>
       <PageHeader toggleDrawer={toggleDrawer} />
@@ -68,6 +69,7 @@ const Landing = () => {
         modal={modal}
         toggleModal={toggleModal}
         aboutUs={aboutUs}
+        contactUs={contactUs}
       />
       <LanguageBar languages={languages} />
       <Banner />

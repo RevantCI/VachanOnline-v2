@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -12,6 +11,7 @@ import BuildIcon from "@material-ui/icons/Build";
 import Modal from "@material-ui/core/Modal";
 import Drawer from "@material-ui/core/Drawer";
 import AboutUs from "./AboutUs";
+import ContactUs from "./ContactUs";
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -22,54 +22,60 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LandingMenu = ({
-  menu,
-  menus,
-  modal,
-  toggleModal,
-  aboutUs,
-  toggleDrawer
-}) => {
+const LandingMenu = props => {
   const classes = useStyles();
   return (
     <>
-      <Drawer open={menu} onClose={toggleDrawer(false)}>
+      <Drawer open={props.menu} onClose={props.toggleDrawer(false)}>
         <div
           className={classes.list}
           role="presentation"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
+          onClick={props.toggleDrawer(false)}
+          onKeyDown={props.toggleDrawer(false)}
         >
           <List>
-            <ListItem button onClick={toggleModal("aboutUs", true)}>
+            <ListItem button onClick={props.toggleModal("aboutUs", true)}>
               <ListItemIcon>
                 <BuildIcon />
               </ListItemIcon>
-              <ListItemText primary={menus[0]} />
+              <ListItemText primary={props.menus[0]} />
             </ListItem>
-            <ListItem button onClick={toggleModal("aboutUs", true)}>
+            <ListItem button onClick={props.toggleModal("contactUs", true)}>
               <ListItemIcon>
                 <RoomIcon />
               </ListItemIcon>
-              <ListItemText primary={menus[1]} />
+              <ListItemText primary={props.menus[1]} />
             </ListItem>
-            <ListItem button onClick={toggleModal("aboutUs", true)}>
+            <ListItem button onClick={props.toggleModal("aboutUs", true)}>
               <ListItemIcon>
                 <FeedbackIcon />
               </ListItemIcon>
-              <ListItemText primary={menus[2]} />
+              <ListItemText primary={props.menus[2]} />
             </ListItem>
-            <ListItem button onClick={toggleModal("aboutUs", true)}>
+            <ListItem button onClick={props.toggleModal("aboutUs", true)}>
               <ListItemIcon>
                 <MailIcon />
               </ListItemIcon>
-              <ListItemText primary={menus[3]} />
+              <ListItemText primary={props.menus[3]} />
             </ListItem>
           </List>
         </div>
       </Drawer>
-      <Modal open={modal.aboutUs} onClose={toggleModal("aboutUs", false)}>
-        <AboutUs aboutUs={aboutUs} />
+      <Modal
+        open={props.modal.aboutUs}
+        onClose={props.toggleModal("aboutUs", false)}
+      >
+        <div>
+          <AboutUs aboutUs={props.aboutUs} />
+        </div>
+      </Modal>
+      <Modal
+        open={props.modal.contactUs}
+        onClose={props.toggleModal("contactUS", false)}
+      >
+        <div>
+          <ContactUs contactUs={props.contactUs} />
+        </div>
       </Modal>
     </>
   );
