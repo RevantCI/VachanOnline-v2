@@ -30,9 +30,10 @@ const Landing = () => {
   let books = ["", "Mathew", "Mark", "Luke", "John"];
   let chapters = ["", "1", "2", "3"];
   let label = "Read";
+  let menus = ["About us", "Contact us", "Feedback", "Subscribe"];
   return (
     <Grid>
-      <CarouselHeader />
+      <CarouselHeader menus={menus} />
       <LanguageBar languages={languages} />
       <Banner />
       <BibleIndex

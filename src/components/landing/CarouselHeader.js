@@ -8,6 +8,8 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import Drawer from "@material-ui/core/Drawer";
+import LandingMenu from "./LandingMenu";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,47 +78,64 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CarouselHeader = props => {
+const CarouselHeader = ({ menus }) => {
   const classes = useStyles();
+  const [menu, setMenu] = React.useState(false);
+
+  const toggleDrawer = open => event => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setMenu(open);
+  };
   return (
-    <div className={classes.root}>
-      <AppBar className={classes.appBar} position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h5" noWrap>
-            Vachanonline
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+    <>
+      <Drawer open={menu} onClose={toggleDrawer(false)}>
+        <LandingMenu toggleDrawer={toggleDrawer} menus={menus} />
+      </Drawer>
+      <div className={classes.root}>
+        <AppBar className={classes.appBar} position="static">
+          <Toolbar>
+            <IconButton
+              onClick={toggleDrawer(true)}
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Open drawer"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography className={classes.title} variant="h5" noWrap>
+              Vachanonline
+            </Typography>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ "aria-label": "Search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ "aria-label": "Search" }}
-            />
-          </div>
-          <Button
-            size="small"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+            <Button
+              size="small"
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              Login
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    </>
   );
 };
 export default CarouselHeader;
