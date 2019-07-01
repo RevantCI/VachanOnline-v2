@@ -12,6 +12,8 @@ import Modal from "@material-ui/core/Modal";
 import Drawer from "@material-ui/core/Drawer";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
+import Feedback from "./Feedback";
+import Subscribe from "./Subscribe";
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -46,13 +48,13 @@ const LandingMenu = props => {
               </ListItemIcon>
               <ListItemText primary={props.menus[1]} />
             </ListItem>
-            <ListItem button onClick={props.toggleModal("aboutUs", true)}>
+            <ListItem button onClick={props.toggleModal("feedback", true)}>
               <ListItemIcon>
                 <FeedbackIcon />
               </ListItemIcon>
               <ListItemText primary={props.menus[2]} />
             </ListItem>
-            <ListItem button onClick={props.toggleModal("aboutUs", true)}>
+            <ListItem button onClick={props.toggleModal("subscribe", true)}>
               <ListItemIcon>
                 <MailIcon />
               </ListItemIcon>
@@ -71,10 +73,27 @@ const LandingMenu = props => {
       </Modal>
       <Modal
         open={props.modal.contactUs}
-        onClose={props.toggleModal("contactUS", false)}
+        onClose={props.toggleModal("contactUs", false)}
       >
         <div>
           <ContactUs contactUs={props.contactUs} />
+        </div>
+      </Modal>
+
+      <Modal
+        open={props.modal.feedback}
+        onClose={props.toggleModal("feedback", false)}
+      >
+        <div>
+          <Feedback />
+        </div>
+      </Modal>
+      <Modal
+        open={props.modal.subscribe}
+        onClose={props.toggleModal("subscribe", false)}
+      >
+        <div>
+          <Subscribe />
         </div>
       </Modal>
     </>
