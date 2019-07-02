@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -18,7 +19,10 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 400
+    width: 300
+  },
+  margin: {
+    marginTop: theme.spacing(3)
   }
 }));
 
@@ -38,6 +42,9 @@ const Subscribe = () => {
         className={classes.textField}
         margin="normal"
       />
+      <Button variant="contained" color="primary" className={classes.margin}>
+        Submit
+      </Button>
     </div>
   );
 };

@@ -75,10 +75,17 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     borderColor: "white",
     backgroundColor: "#007bff"
+  },
+  read: {
+    position: "absolute",
+    top: 100,
+    display: "flex",
+    width: "100%",
+    marginLeft: "47%"
   }
 }));
 
-const PageHeader = ({ toggleDrawer }) => {
+const PageHeader = () => {
   const classes = useStyles();
   return (
     <>
@@ -86,7 +93,6 @@ const PageHeader = ({ toggleDrawer }) => {
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
             <IconButton
-              onClick={toggleDrawer(true)}
               edge="start"
               className={classes.menuButton}
               color="inherit"
@@ -95,15 +101,7 @@ const PageHeader = ({ toggleDrawer }) => {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h5" noWrap>
-              <Link
-                to={{
-                  pathname: "/read",
-                  hash: "#submit",
-                  search: "?quick-search=true"
-                }}
-              >
-                Vachanonline
-              </Link>
+              <Link to="/">Vachanonline</Link>
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -129,6 +127,9 @@ const PageHeader = ({ toggleDrawer }) => {
           </Toolbar>
         </AppBar>
       </div>
+      <Typography className={classes.read} variant="h5" noWrap>
+        Read Bible Page
+      </Typography>
     </>
   );
 };

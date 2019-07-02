@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "2px 2px 3px #968e8e"
   },
   button: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(1.5)
   },
   heading: {
     color: "#2f2f2f",
@@ -41,7 +41,7 @@ const BibleIndex = ({ versions, books, chapters, label }) => {
         <Combo name="version" label="Version" options={versions} />
         <Combo name="book" label="Book" options={books} />
         <Combo name="chapter" label="Chapter" options={chapters} />
-        <Button variant="contained" className={classes.button}>
+        <Button size="large" variant="contained" className={classes.button}>
           {label}
         </Button>
       </Paper>

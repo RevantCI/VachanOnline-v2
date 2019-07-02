@@ -22,7 +22,7 @@ const ContactUs = ({ contactUs }) => {
   return (
     <div className={classes.paper}>
       <Typography variant="h4" id="modal-title">
-        Vachan Online
+        Contact Us
       </Typography>
       <Typography variant="subtitle1" id="simple-modal-description">
         {contactUs}

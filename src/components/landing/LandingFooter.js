@@ -7,6 +7,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   landingFooter: {
+    bottom: 0,
+    position: "fixed",
     backgroundColor: "#2275bb",
     color: "#fff",
     padding: "5px 20px",
@@ -22,11 +24,16 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center"
   },
   link: {
+    color: "inherit",
+    textDecoration: "none",
     borderRight: "1px solid #fff",
     display: "inline-block",
     padding: "0px 10px",
     fontSize: 18,
     marginTop: 8,
+    "&:hover": {
+      color: "inherit"
+    },
     "&:last-child": {
       borderRight: 0
     }
@@ -40,15 +47,30 @@ const LandingFooter = props => {
   return (
     <Grid container className={classes.landingFooter}>
       <Grid item xs={12} md={4}>
-        {props.links.map(linkText => (
-          <Link
-            className={classes.link}
-            key={linkText}
-            onClick={props.toggleModal("aboutUs", true)}
-          >
-            {linkText}{" "}
-          </Link>
-        ))}
+        <Link
+          href="#"
+          className={classes.link}
+          key={props.links[0]}
+          onClick={props.toggleModal("aboutUs", true)}
+        >
+          {props.links[0]}{" "}
+        </Link>
+        <Link
+          href="#"
+          className={classes.link}
+          key={props.links[1]}
+          onClick={props.toggleModal("contactUs", true)}
+        >
+          {props.links[1]}{" "}
+        </Link>
+        <Link
+          href="#"
+          className={classes.link}
+          key={props.links[2]}
+          onClick={props.toggleModal("feedback", true)}
+        >
+          {props.links[2]}{" "}
+        </Link>
       </Grid>
       <Grid item xs={12} md={5}>
         <Link>
@@ -61,6 +83,7 @@ const LandingFooter = props => {
           size="small"
           color="inherit"
           className={classes.button}
+          onClick={props.toggleModal("subscribe", true)}
         >
           {props.subscribe}
         </Button>
