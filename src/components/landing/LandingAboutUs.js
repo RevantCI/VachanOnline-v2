@@ -5,7 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   aboutUs: {
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom: 100
   }
 }));
 const AboutUs = props => {
@@ -13,7 +14,7 @@ const AboutUs = props => {
   return (
     <Grid container justify="center">
       <Grid item xs={7}>
-        <Typography className={classes.aboutUs} variant="h5" gutterBottom>
+        <Typography className={classes.aboutUs} variant="h6">
           {props.aboutUs}
         </Typography>
       </Grid>

@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
     margin: "auto",
     position: "relative",
     bottom: 70,
-    height: 128,
-    padding: "0px 30px",
+    height: "auto",
+    padding: "25px 30px",
     borderRadius: 20,
     boxShadow: "2px 2px 3px #968e8e"
   },

@@ -7,6 +7,7 @@ import LandingFooter from "./LandingFooter";
 import Grid from "@material-ui/core/Grid";
 import LandingMenu from "./LandingMenu";
 import "./Landing.css";
+import LandingAboutUs from "./LandingAboutUs";
 
 const Landing = () => {
   let footerData = {
@@ -79,6 +80,7 @@ const Landing = () => {
         chapters={chapters}
         label={label}
       />
+      <LandingAboutUs aboutUs={aboutUs} />
       <LandingFooter {...footerData} toggleModal={toggleModal} />
     </Grid>
   );
