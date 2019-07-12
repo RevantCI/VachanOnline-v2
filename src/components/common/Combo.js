@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Combo({ name, label, options }) {
+export default function Combo({ name, label, options, onchange }) {
   const classes = useStyles();
   const [value, setValue] = React.useState("");
 
@@ -28,6 +28,7 @@ export default function Combo({ name, label, options }) {
 
   const handleChange = event => {
     setValue(event.target.value);
+    onchange(event.target.value);
   };
   return (
     <FormControl variant="outlined" className={classes.formControl}>
@@ -41,8 +42,8 @@ export default function Combo({ name, label, options }) {
         input={<OutlinedInput name={name} labelWidth={labelWidth} id={name} />}
         className="indexSelect"
       >
-        {options.map(text => (
-          <option key={text} value={text}>
+        {options.map((text, i) => (
+          <option key={i} value={text}>
             {text}
           </option>
         ))}

@@ -4,7 +4,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
+import { Link } from "react-router-dom";
+import { versions, bookChapters } from "../../data/bibledata";
 const useStyles = makeStyles(theme => ({
   container: {
     width: "100%",
@@ -30,7 +33,13 @@ const useStyles = makeStyles(theme => ({
     paddingTop: 10
   }
 }));
-const BibleIndex = ({ versions, books, chapters, label }) => {
+const BibleIndex = props => {
+  const chapters = props.book !== "" ? bookChapters[props.book] : 0;
+  let label = "Read";
+  let chapterList = [...new Array(chapters)].map((x, i) => i + 1);
+  const books = Object.keys(bookChapters);
+  books.unshift("");
+  chapterList.unshift("");
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -38,14 +47,57 @@ const BibleIndex = ({ versions, books, chapters, label }) => {
         <Typography variant="h5" gutterBottom className={classes.heading}>
           Read Bible
         </Typography>
-        <Combo name="version" label="Version" options={versions} />
-        <Combo name="book" label="Book" options={books} />
-        <Combo name="chapter" label="Chapter" options={chapters} />
-        <Button size="large" variant="contained" className={classes.button}>
-          {label}
-        </Button>
+        <Combo
+          name="version"
+          label="Version"
+          options={versions}
+          value={props.version}
+          onchange={val => props.setValue("version", val)}
+        />
+        <Combo
+          name="book"
+          label="Book"
+          options={books}
+          value={props.book}
+          onchange={val => props.setValue("book", val)}
+        />
+        <Combo
+          name="chapter"
+          label="Chapter"
+          options={chapterList}
+          value={props.chapter}
+          onchange={val => props.setValue("chapter", val)}
+        />
+        <Link
+          to={{
+            pathname: "/read",
+            hash: "#submit",
+            search: "?quick-search=true"
+          }}
+        >
+          <Button size="large" variant="contained" className={classes.button}>
+            {label}
+          </Button>
+        </Link>
       </Paper>
     </div>
   );
 };
-export default BibleIndex;
+
+const mapStateToProps = state => {
+  return {
+    version: state.version,
+    book: state.book,
+    chapter: state.chapter
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setValue: (name, value) =>
+      dispatch({ type: actions.SETVALUE, name: name, value: value })
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BibleIndex);

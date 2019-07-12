@@ -48,10 +48,6 @@ const Landing = () => {
   const toggleModal = (name, value) => () => {
     setMenuModal({ ...modal, [name]: value });
   };
-  let versions = ["", "NIV", "KJV"];
-  let books = ["", "Mathew", "Mark", "Luke", "John"];
-  let chapters = ["", "1", "2", "3"];
-  let label = "Read";
   let menus = ["About us", "Contact us", "Feedback", "Subscribe"];
   let aboutUs =
     "VachanOnline.com is the premier Bible study website in Indian languages." +
@@ -74,12 +70,7 @@ const Landing = () => {
       />
       <LanguageBar languages={languages} />
       <Banner />
-      <BibleIndex
-        versions={versions}
-        books={books}
-        chapters={chapters}
-        label={label}
-      />
+      <BibleIndex />
       <LandingAboutUs aboutUs={aboutUs} />
       <LandingFooter {...footerData} toggleModal={toggleModal} />
     </Grid>
