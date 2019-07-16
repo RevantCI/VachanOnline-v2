@@ -75,7 +75,8 @@ const BibleIndex = props => {
             search: "?quick-search=true"
           }}
         >
-          <Button size="large" variant="contained" className={classes.button}>
+          <Button variant="contained" className={classes.button}>
+            {" "}
             {label}
           </Button>
         </Link>

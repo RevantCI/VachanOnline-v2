@@ -9,17 +9,29 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
+import Grid from "@material-ui/core/Grid";
+
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
+import Combo from "../common/Combo";
+import Popover from "@material-ui/core/Popover";
+// import MailIcon from "@material-ui/icons/Mail";
+import { versions, bookChapters } from "../../data/bibledata";
+// import { Paper } from "@material-ui/core";
+import Setting from "../common/Setting";
+import Bible from "./Bible";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    position: "absolute",
+    // flexGrow: 1,
+    // position: "absolute",
     top: 0,
     display: "flex",
     width: "100%"
   },
   appBar: {
-    background: "rgba(0,0,0,0.5)"
+    background: "#3970a7",
+    padding: "0px 20px"
   },
   title: {
     flexGrow: 1,
@@ -71,22 +83,84 @@ const useStyles = makeStyles(theme => ({
     }
   },
   button: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(0),
     color: "white",
     borderColor: "white",
     backgroundColor: "#007bff"
   },
   read: {
-    position: "absolute",
-    top: 100,
+    // position: "absolute",
+
+    padding: "10px 6%",
+    // display: "flex",
+    width: "100%",
+    borderBottom: "1px solid #ddd"
+    // marginLeft: "47%"
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "left",
+    color: theme.palette.text.secondary
+  },
+  btn: {
+    border: "1px solid #ccc",
+    textAlign: "left",
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    marginRight: theme.spacing(1)
+  },
+  box: {
+    width: "30%",
+    display: "inline-block",
+    backgroundColor: "#00f"
+  },
+  select: {
+    marginTop: "-8px"
+  },
+  info: {
+    marginTop: 2
+  },
+  items: {
+    textAlign: "right"
+  },
+  paper1: {
+    width: "80%"
+  },
+  content: {
+    padding: 20,
+    lineHeight: 2,
+    fontSize: 16,
+    backgroundColor: "#5181a9",
+    color: "#fff"
+  },
+  bible: {
     display: "flex",
     width: "100%",
-    marginLeft: "47%"
+    // backgroundColor: "#f0f0f0",
+    padding: "0px 0px"
   }
 }));
 
-const PageHeader = () => {
+const PageHeader = props => {
+  const chapters = props.book !== "" ? bookChapters[props.book] : 0;
+
+  let chapterList = [...new Array(chapters)].map((x, i) => i + 1);
+  const books = Object.keys(bookChapters);
+  books.unshift("");
+  chapterList.unshift("");
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   return (
     <>
       <div className={classes.root}>
@@ -127,10 +201,119 @@ const PageHeader = () => {
           </Toolbar>
         </AppBar>
       </div>
-      <Typography className={classes.read} variant="h5" noWrap>
-        Read Bible Page
-      </Typography>
+      <Grid container className={classes.read}>
+        <Grid item xs={6}>
+          <Combo
+            className={classes.select}
+            name="version"
+            label="Version"
+            options={versions}
+            value={props.version}
+            onchange={val => props.setValue("version", val)}
+            stylePadding="40px"
+          />
+          <Combo
+            name="book"
+            label="Book"
+            options={books}
+            value={props.book}
+            onchange={val => props.setValue("book", val)}
+            stylePadding="40px"
+          />
+          <Combo
+            name="chapter"
+            label="Chapter"
+            options={chapterList}
+            value={props.chapter}
+            onchange={val => props.setValue("chapter", val)}
+            stylePadding="40px"
+          />
+        </Grid>
+        <Grid item xs={6} className={classes.items}>
+          <div>
+            <Button
+              aria-describedby={id}
+              onClick={handleClick}
+              className={classes.info}
+            >
+              <svg
+                style={{ width: "24px", height: "24px" }}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="#1976D2"
+                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+                />
+              </svg>
+            </Button>
+            <Popover
+              id={id}
+              className={classes.paper1}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center"
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center"
+              }}
+            >
+              <div className={classes.content}>
+                <h2>SvgIcon components</h2>
+                It's interesting to have the building blocks needed to implement
+                custom icons, but what about presets? We provide a separate npm
+                package, @material-ui/icons, that includes the 1,000+ official
+                Material icons converted to SvgIcon components. It's interesting
+                to have the building blocks needed to implement custom icons,
+                but what about presets? We provide a separate npm package,
+                @material-ui/icons, that includes the 1,000+ official Material
+                icons converted to SvgIcon components. It's interesting to have
+                the building blocks needed to implement custom icons, but what
+                about presets? We provide a separate npm package,
+                @material-ui/icons, that includes the 1,000+ official Material
+                icons converted to SvgIcon components.
+              </div>
+            </Popover>
+            <Button>
+              <svg
+                style={{ width: "24px", height: "24px", color: "blue" }}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="#1976D2"
+                  d="M9.5,13.09L10.91,14.5L6.41,19H10V21H3V14H5V17.59L9.5,13.09M10.91,9.5L9.5,10.91L5,6.41V10H3V3H10V5H6.41L10.91,9.5M14.5,13.09L19,17.59V14H21V21H14V19H17.59L13.09,14.5L14.5,13.09M13.09,9.5L17.59,5H14V3H21V10H19V6.41L14.5,10.91L13.09,9.5Z"
+                />
+              </svg>
+            </Button>
+            <Setting />
+          </div>
+        </Grid>
+      </Grid>
+      <Grid container className={classes.bible}>
+        <Grid item xs={12}>
+          <Bible />
+        </Grid>
+      </Grid>
     </>
   );
 };
-export default PageHeader;
+const mapStateToProps = state => {
+  return {
+    version: state.version,
+    book: state.book,
+    chapter: state.chapter
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setValue: (name, value) =>
+      dispatch({ type: actions.SETVALUE, name: name, value: value })
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageHeader);

@@ -1,3 +1,9 @@
+body {
+  font-family: "Lato", sans-serif;
+  color: #343454;
+  font-weight: 800;
+}
+
 .searchIcon {
   display: inline;
 }
@@ -15,6 +21,13 @@
   background-color: #fff;
   margin-top: 5px;
 }
-.indexSelect select {
-  padding: 16px;
+button:focus {
+  outline: none;
 }
+button:hover {
+  background-color: white;
+}
+
+/* .indexSelect select {
+  padding: 16px;
+} */

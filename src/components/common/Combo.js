@@ -13,10 +13,23 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120
+  },
+  indexSelect: {
+    height: 50,
+    padding: "0px"
   }
 }));
 
-export default function Combo({ name, label, options, onchange }) {
+export default function Combo({
+  name,
+  label,
+  options,
+  onchange,
+  stylePadding
+}) {
+  if (!stylePadding) {
+    const stylePadding = null;
+  }
   const classes = useStyles();
   const [value, setValue] = React.useState("");
 
@@ -40,7 +53,8 @@ export default function Combo({ name, label, options, onchange }) {
         value={value}
         onChange={handleChange}
         input={<OutlinedInput name={name} labelWidth={labelWidth} id={name} />}
-        className="indexSelect"
+        className={classes.indexSelect}
+        style={{ height: stylePadding }}
       >
         {options.map((text, i) => (
           <option key={i} value={text}>
