@@ -1,9 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -11,16 +9,19 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-// import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 const options = ["Download", "Print"];
 const useStyles = makeStyles(theme => ({
   iconButton: {
-    color: "#1976D2"
+    color: "#1976D2",
+    height: "0px",
+    cursor: "pointer",
+    marginTop: "18px",
+    "& hover": {
+      backgroundColor: "#fff"
+    }
   },
   heading: {
-    // fontSize: theme.typography.pxToRem(15),
-    // fontWeight: theme.typography.fontWeightRegular,
     backgroundColor: "#5181a9",
     color: "#fff"
   },
@@ -39,30 +40,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const ITEM_HEIGHT = 68;
-const Setting = () => {
-  const [anchorEl, setAnchorEl] = React.useState(false);
+const Setting = ({ anchorEl, handleClick, handleClose }) => {
   const open = Boolean(anchorEl);
-
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
 
   const classes = useStyles();
   return (
     <>
-      <IconButton
-        className={classes.iconButton}
-        aria-label="More"
-        aria-controls="long-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
       <Menu
         id="long-menu"
         anchorEl={anchorEl}

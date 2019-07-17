@@ -6,15 +6,16 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 const useStyles = makeStyles(theme => ({
   bible: {
-    height: 475,
     padding: "15px 8%",
-    overflowY: "scroll",
+    backgroundColor: "white",
     lineHeight: 2,
 
     "& p": {
       fontSize: 16,
       textAlign: "justify",
-      fontFamily: "Lato"
+      // fontFamily: "Istok Web",
+      color: "#616161"
+      // fontWeight: 200
     }
   },
   margin: {
@@ -34,7 +35,7 @@ const Bible = () => {
   return (
     // eslint-disable-next-line react/jsx-no-undef
     <div className={classes.bible}>
-      <h4>The Wise Men Visit</h4>
+      <h5>The Wise Men Visit</h5>
       <p>
         2 Jesus was born in Bethlehem in Judea when Herod was king. After Jesus’
         birth wise men[a] from the east arrived in Jerusalem. 2 They asked,

@@ -10,25 +10,22 @@ import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import Grid from "@material-ui/core/Grid";
-
+import Fullscreen from "react-full-screen";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import Combo from "../common/Combo";
 import Popover from "@material-ui/core/Popover";
-// import MailIcon from "@material-ui/icons/Mail";
 import { versions, bookChapters } from "../../data/bibledata";
-// import { Paper } from "@material-ui/core";
 import Setting from "../common/Setting";
 import Bible from "./Bible";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // flexGrow: 1,
-    // position: "absolute",
     top: 0,
     display: "flex",
     width: "100%"
   },
+
   appBar: {
     background: "#3970a7",
     padding: "0px 20px"
@@ -89,13 +86,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#007bff"
   },
   read: {
-    // position: "absolute",
-
     padding: "10px 6%",
-    // display: "flex",
     width: "100%",
-    borderBottom: "1px solid #ddd"
-    // marginLeft: "47%"
+    borderBottom: "1px solid #f1ecec"
   },
   paper: {
     padding: theme.spacing(2),
@@ -118,10 +111,25 @@ const useStyles = makeStyles(theme => ({
     marginTop: "-8px"
   },
   info: {
-    marginTop: 2
+    padding: 0,
+    width: "40px",
+    marginTop: 20,
+    marginRight: "8px",
+    color: "#1976D2",
+    cursor: "pointer"
   },
+  settings: {
+    padding: 0,
+    width: "40px",
+    marginTop: 19,
+    marginLeft: "-10px",
+    color: "#1976D2",
+    cursor: "pointer"
+  },
+
   items: {
-    textAlign: "right"
+    justify: "flex-end",
+    float: "right"
   },
   paper1: {
     width: "80%"
@@ -136,8 +144,13 @@ const useStyles = makeStyles(theme => ({
   bible: {
     display: "flex",
     width: "100%",
-    // backgroundColor: "#f0f0f0",
     padding: "0px 0px"
+  },
+  fullscreen: {
+    backgroundColor: "#fff"
+  },
+  materialIcon: {
+    width: 30
   }
 }));
 
@@ -151,12 +164,26 @@ const PageHeader = props => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const [fullscreen, setFullscreen] = React.useState(false);
+  function goFull() {
+    setFullscreen(true);
+  }
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
   }
 
   function handleClose() {
     setAnchorEl(null);
+  }
+
+  const [anchorEl1, setAnchorEl1] = React.useState(false);
+
+  function handleClick1(event) {
+    setAnchorEl1(event.currentTarget);
+  }
+
+  function handleClose1() {
+    setAnchorEl1(null);
   }
 
   const open = Boolean(anchorEl);
@@ -229,72 +256,82 @@ const PageHeader = props => {
             stylePadding="40px"
           />
         </Grid>
-        <Grid item xs={6} className={classes.items}>
-          <div>
-            <Button
-              aria-describedby={id}
-              onClick={handleClick}
-              className={classes.info}
-            >
-              <svg
-                style={{ width: "24px", height: "24px" }}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="#1976D2"
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </Button>
-            <Popover
-              id={id}
-              className={classes.paper1}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-            >
-              <div className={classes.content}>
-                <h2>SvgIcon components</h2>
-                It's interesting to have the building blocks needed to implement
-                custom icons, but what about presets? We provide a separate npm
-                package, @material-ui/icons, that includes the 1,000+ official
-                Material icons converted to SvgIcon components. It's interesting
-                to have the building blocks needed to implement custom icons,
-                but what about presets? We provide a separate npm package,
-                @material-ui/icons, that includes the 1,000+ official Material
-                icons converted to SvgIcon components. It's interesting to have
-                the building blocks needed to implement custom icons, but what
-                about presets? We provide a separate npm package,
-                @material-ui/icons, that includes the 1,000+ official Material
-                icons converted to SvgIcon components.
-              </div>
-            </Popover>
-            <Button>
-              <svg
-                style={{ width: "24px", height: "24px", color: "blue" }}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="#1976D2"
-                  d="M9.5,13.09L10.91,14.5L6.41,19H10V21H3V14H5V17.59L9.5,13.09M10.91,9.5L9.5,10.91L5,6.41V10H3V3H10V5H6.41L10.91,9.5M14.5,13.09L19,17.59V14H21V21H14V19H17.59L13.09,14.5L14.5,13.09M13.09,9.5L17.59,5H14V3H21V10H19V6.41L14.5,10.91L13.09,9.5Z"
-                />
-              </svg>
-            </Button>
-            <Setting />
+        <Grid
+          item
+          xs={6}
+          className={classes.items}
+          container
+          alignItems="flex-start"
+          justify="flex-end"
+          direction="row"
+        >
+          <div
+            aria-describedby={id}
+            onClick={handleClick}
+            className={classes.info}
+          >
+            <i class="material-icons md-32">info_outline</i>
           </div>
+          <Popover
+            id={id}
+            className={classes.paper1}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center"
+            }}
+          >
+            <div className={classes.content}>
+              <h2>SvgIcon components</h2>
+              It's interesting to have the building blocks needed to implement
+              custom icons, but what about presets? We provide a separate npm
+              package, @material-ui/icons, that includes the 1,000+ official
+              Material icons converted to SvgIcon components. It's interesting
+              to have the building blocks needed to implement custom icons, but
+              what about presets? We provide a separate npm package,
+              @material-ui/icons, that includes the 1,000+ official Material
+              icons converted to SvgIcon components. It's interesting to have
+              the building blocks needed to implement custom icons, but what
+              about presets? We provide a separate npm package,
+              @material-ui/icons, that includes the 1,000+ official Material
+              icons converted to SvgIcon components.
+            </div>
+          </Popover>
+          <div className={classes.info} onClick={goFull}>
+            <i class="material-icons md-32">zoom_out_map</i>
+          </div>
+          <div
+            className={classes.settings}
+            aria-label="More"
+            aria-controls="long-menu"
+            aria-haspopup="true"
+            onClick={handleClick1}
+          >
+            <i class="material-icons md-36">more_vert</i>
+          </div>
+          <Setting
+            handleClick={handleClick1}
+            anchorEl={anchorEl1}
+            handleClose={handleClose1}
+          />
         </Grid>
       </Grid>
+
       <Grid container className={classes.bible}>
         <Grid item xs={12}>
-          <Bible />
+          <Fullscreen
+            enabled={fullscreen}
+            onChange={fullscreen => setFullscreen(fullscreen)}
+            className={classes.fullscreen}
+          >
+            <Bible />
+          </Fullscreen>
         </Grid>
       </Grid>
     </>

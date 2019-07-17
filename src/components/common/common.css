@@ -1,9 +1,3 @@
-body {
-  font-family: "Lato", sans-serif;
-  color: #343454;
-  font-weight: 800;
-}
-
 .searchIcon {
   display: inline;
 }
@@ -27,7 +21,26 @@ button:focus {
 button:hover {
   background-color: white;
 }
+.my-component {
+  background: #fff;
+}
 
-/* .indexSelect select {
-  padding: 16px;
-} */
+.fullscreen-enabled .my-component {
+  background: #000;
+}
+.fullscreen-enabled > div {
+  height: 100vh;
+  overflow-y: scroll;
+}
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-32 {
+  font-size: 32px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}

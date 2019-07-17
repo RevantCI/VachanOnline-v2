@@ -20,16 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Combo({
-  name,
-  label,
-  options,
-  onchange,
-  stylePadding
-}) {
-  if (!stylePadding) {
-    const stylePadding = null;
-  }
+export default function Combo({ name, label, options, onchange }) {
   const classes = useStyles();
   const [value, setValue] = React.useState("");
 
@@ -54,7 +45,6 @@ export default function Combo({
         onChange={handleChange}
         input={<OutlinedInput name={name} labelWidth={labelWidth} id={name} />}
         className={classes.indexSelect}
-        style={{ height: stylePadding }}
       >
         {options.map((text, i) => (
           <option key={i} value={text}>
