@@ -6,7 +6,7 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 const useStyles = makeStyles(theme => ({
   bible: {
-    padding: "15px 8%",
+    padding: "25px 8%",
     backgroundColor: "white",
     lineHeight: 2,
 

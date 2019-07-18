@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "1px solid #f1ecec"
   },
   select: {
-    marginTop: "-8px"
+    marginTop: "-8px",
+    backgroundColor: "red"
   },
   info: {
     padding: 0,
@@ -26,8 +27,9 @@ const useStyles = makeStyles(theme => ({
   settings: {
     padding: 0,
     width: "40px",
-    marginTop: 19,
+    marginTop: 20,
     marginLeft: "-10px",
+    marginRight: "-21px",
     color: "#1976D2",
     cursor: "pointer"
   },
@@ -101,7 +103,7 @@ export default function MenuBar({ version, setValue, setFullscreen }) {
           onClick={handleClick}
           className={classes.info}
         >
-          <i className="material-icons md-32">info_outline</i>
+          <i className="material-icons md-26">info_outline</i>
         </div>
         <Popover
           id={id}
@@ -135,7 +137,7 @@ export default function MenuBar({ version, setValue, setFullscreen }) {
           </div>
         </Popover>
         <div className={classes.info} onClick={goFull}>
-          <i className="material-icons md-32">zoom_out_map</i>
+          <i className="material-icons md-26">zoom_out_map</i>
         </div>
         <div
           className={classes.settings}
@@ -144,7 +146,7 @@ export default function MenuBar({ version, setValue, setFullscreen }) {
           aria-haspopup="true"
           onClick={handleClick1}
         >
-          <i className="material-icons md-36">more_vert</i>
+          <i className="material-icons md-26">more_vert</i>
         </div>
         <Setting
           handleClick={handleClick1}

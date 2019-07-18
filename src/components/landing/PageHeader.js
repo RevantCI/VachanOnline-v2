@@ -1,10 +1,10 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
-import InputBase from "@material-ui/core/InputBase";
+// import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import SearchIcon from "@material-ui/icons/Search";
+// import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
@@ -105,7 +105,7 @@ const PageHeader = ({ toggleDrawer }) => {
                 Vachanonline
               </Link>
             </Typography>
-            <div className={classes.search}>
+            {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -125,7 +125,7 @@ const PageHeader = ({ toggleDrawer }) => {
               className={classes.button}
             >
               Login
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
       </div>
