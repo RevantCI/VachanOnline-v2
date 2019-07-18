@@ -6,29 +6,42 @@ import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
 const useStyles = makeStyles(theme => ({
   nested: {
-    paddingLeft: theme.spacing(4),
+    marginRight: theme.spacing(1),
     display: "inline-block",
     width: 50,
     textAlign: "center",
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   }
 }));
-export default function BookCombo({ text, key, chapters, book, bookClicked }) {
+export default function BookItem({
+  text,
+  chapters,
+  bookOpen,
+  bookClicked,
+  setValue,
+  closeMenu
+}) {
   const classes = useStyles();
+  const clickChapter = event => {
+    closeMenu();
+    setValue("book", bookOpen);
+    setValue("chapter", event.currentTarget.getAttribute("value"));
+  };
   return (
     <>
-      <ListItem
-        key={key}
-        value={text}
-        button
-        onClick={event => bookClicked(event)}
-      >
+      <ListItem value={text} button onClick={event => bookClicked(event)}>
         <ListItemText primary={text} />
       </ListItem>
-      <Collapse in={book === text} timeout="auto" unmountOnExit>
+      <Collapse key={text} in={bookOpen === text} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {chapters.map((chapter, i) => (
-            <ListItem key={i} value={chapter} button className={classes.nested}>
+            <ListItem
+              key={text + i}
+              value={chapter}
+              button
+              className={classes.nested}
+              onClick={clickChapter}
+            >
               {chapter}
             </ListItem>
           ))}

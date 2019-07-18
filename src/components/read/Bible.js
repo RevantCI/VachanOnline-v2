@@ -105,7 +105,7 @@ const Bible = () => {
 
       <Fab
         size="small"
-        color="#f0f0f0"
+        color="default"
         aria-label="Add"
         className={classes.margin}
       >
@@ -113,7 +113,7 @@ const Bible = () => {
       </Fab>
       <Fab
         size="small"
-        color="#f0f0f0"
+        color="default"
         aria-label="Add"
         className={classes.right}
       >

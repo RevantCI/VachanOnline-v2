@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Fullscreen from "react-full-screen";
-import { connect } from "react-redux";
-import * as actions from "../../store/actions";
 import TopBar from "./TopBar";
 import MenuBar from "./MenuBar";
 import Bible from "./Bible";
@@ -19,18 +17,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PageHeader = props => {
+const ReadBible = () => {
   const classes = useStyles();
   const [fullscreen, setFullscreen] = React.useState(false);
 
   return (
     <>
       <TopBar />
-      <MenuBar
-        version={props.version}
-        setValue={props.setValue}
-        setFullscreen={setFullscreen}
-      />
+      <MenuBar setFullscreen={setFullscreen} />
       <Grid container className={classes.bible}>
         <Grid item xs={12}>
           <Fullscreen
@@ -45,20 +39,5 @@ const PageHeader = props => {
     </>
   );
 };
-const mapStateToProps = state => {
-  return {
-    version: state.version,
-    book: state.book,
-    chapter: state.chapter
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    setValue: (name, value) =>
-      dispatch({ type: actions.SETVALUE, name: name, value: value })
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PageHeader);
+
+export default ReadBible;

@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 import Grid from "@material-ui/core/Grid";
 import Combo from "../common/Combo";
 import Popover from "@material-ui/core/Popover";
@@ -48,29 +50,25 @@ const useStyles = makeStyles(theme => ({
     color: "#fff"
   }
 }));
-export default function MenuBar({ version, setValue, setFullscreen }) {
+const MenuBar = props => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
   function goFull() {
-    setFullscreen(true);
+    props.setFullscreen(true);
   }
+  const [anchorEl, setAnchorEl] = React.useState(null);
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
   }
-
   function handleClose() {
     setAnchorEl(null);
   }
 
-  const [anchorEl1, setAnchorEl1] = React.useState(false);
-
-  function handleClick1(event) {
-    setAnchorEl1(event.currentTarget);
+  const [settingsAnchor, setSettingsAnchor] = React.useState(null);
+  function openSettings(event) {
+    setSettingsAnchor(event.currentTarget);
   }
-
-  function handleClose1() {
-    setAnchorEl1(null);
+  function closeSettings() {
+    setSettingsAnchor(null);
   }
 
   const open = Boolean(anchorEl);
@@ -83,11 +81,15 @@ export default function MenuBar({ version, setValue, setFullscreen }) {
           name="version"
           label="Version"
           options={versions}
-          value={version}
-          onchange={val => setValue("version", val)}
+          value={props.version}
+          onchange={val => props.setValue("version", val)}
           stylePadding="40px"
         />
-        <BookCombo onClick={setValue} />
+        <BookCombo
+          book={props.book}
+          chapter={props.chapter}
+          setValue={props.setValue}
+        />
       </Grid>
       <Grid
         item
@@ -144,16 +146,29 @@ export default function MenuBar({ version, setValue, setFullscreen }) {
           aria-label="More"
           aria-controls="long-menu"
           aria-haspopup="true"
-          onClick={handleClick1}
+          onClick={openSettings}
         >
           <i className="material-icons md-26">more_vert</i>
         </div>
-        <Setting
-          handleClick={handleClick1}
-          anchorEl={anchorEl1}
-          handleClose={handleClose1}
-        />
+        <Setting settingsAnchor={settingsAnchor} handleClose={closeSettings} />
       </Grid>
     </Grid>
   );
-}
+};
+const mapStateToProps = state => {
+  return {
+    version: state.version,
+    book: state.book,
+    chapter: state.chapter
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setValue: (name, value) =>
+      dispatch({ type: actions.SETVALUE, name: name, value: value })
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuBar);

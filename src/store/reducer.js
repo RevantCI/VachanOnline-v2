@@ -2,7 +2,7 @@ import * as actions from "./actions";
 const defaultState = {
   version: "NIV",
   book: "Genesis",
-  chapter: "50"
+  chapter: "1"
 };
 const reducer = (state = defaultState, action) => {
   switch (action.type) {

@@ -1,114 +1,108 @@
 import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import List from "@material-ui/core/List";
 import { bookChapters } from "../../data/bibledata";
-//import ListSubheader from "@material-ui/core/ListSubheader";
 import BookItem from "./BookItem";
 const useStyles = makeStyles(theme => ({
   button: {
     left: theme.spacing(1),
-    fontSize: "1.2rem",
-    margin: 10
+    fontSize: "1rem",
+    margin: 9,
+    padding: "10px 0 10px 19px"
+  },
+  icon: {
+    left: 15,
+    position: "relative"
   },
   root: {
     width: "100%",
-    maxWidth: 280,
+    maxWidth: 580,
     backgroundColor: theme.palette.background.paper
   },
   paper: {
     position: "relative",
     top: 50,
     maxHeight: 400,
-    width: 300
-  }
-}));
-const StyledMenu = withStyles({
-  paper: {
+    width: 600,
     border: "1px solid #d3d4d5"
   }
-})(props => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center"
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center"
-    }}
-    {...props}
-  />
-));
-export default function BookCombo({ onClick }) {
+}));
+export default function BookCombo({ book, chapter, setValue }) {
   const classes = useStyles();
-  const chapters = 50; // !== "" ? bookChapters[props.book] : 0;
-
+  const bookDropdown = React.useRef(null);
   const books = Object.keys(bookChapters);
-  books.unshift("");
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
-  function handleClose() {
-    setAnchorEl(null);
-  }
 
-  const chapterList = [...new Array(chapters)].map((x, i) => i + 1);
-  const [bookOpen, setBookOpen] = React.useState("");
+  const [bookOpen, setBookOpen] = React.useState("Genesis");
   function bookClicked(event) {
-    console.log(event);
-    setBookOpen(event.currentTarget.innerText);
+    if (bookOpen !== event.currentTarget.innerText) {
+      setBookOpen(event.currentTarget.innerText);
+    } else {
+      setBookOpen("");
+    }
   }
+  const chapters = bookChapters[bookOpen];
+  const chapterList = [...new Array(chapters)].map((x, i) => i + 1);
+  const [openCombo, setOpenCombo] = React.useState(false);
+  function openMenu(event) {
+    setOpenCombo(true);
+  }
+  function closeMenu() {
+    setOpenCombo(false);
+  }
+  const classesI = `material-icons ${classes.icon}`;
   return (
     <>
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
         variant="contained"
-        onClick={handleClick}
+        onClick={openMenu}
+        ref={bookDropdown}
         classes={{ root: classes.button }}
       >
-        John 1
+        {book} {chapter}
+        <i className={classesI}>keyboard_arrow_downn</i>
       </Button>
-      <StyledMenu
+      <Menu
+        elevation={0}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center"
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
         id="customized-menu"
-        anchorEl={anchorEl}
+        anchorEl={bookDropdown.current}
         keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+        open={openCombo}
+        onClose={closeMenu}
         classes={{
           paper: classes.paper
-        }}
-        PaperProps={{
-          style: {}
         }}
       >
         <List
           component="nav"
           aria-labelledby="nested-list-subheader"
-          // subheader={
-          //  <ListSubheader component="div" id="nested-list-subheader">
-          //    Old Testament
-          //  </ListSubheader>
-          //}
           className={classes.root}
         >
-          {books.map((text, i) => (
+          {books.map((text, id) => (
             <BookItem
               text={text}
-              key={i}
+              key={id}
               chapters={chapterList}
-              book={bookOpen}
+              bookOpen={bookOpen}
               bookClicked={bookClicked}
-              onchange={val => onClick("book", text)}
+              setValue={setValue}
+              closeMenu={closeMenu}
             />
           ))}
         </List>
-      </StyledMenu>
+      </Menu>
     </>
   );
 }
