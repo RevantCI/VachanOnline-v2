@@ -1,6 +1,6 @@
 import * as actions from "./actions";
 const defaultState = {
-  version: "NIV",
+  version: "English Standard Version (ESV)",
   book: "Genesis",
   chapter: "1"
 };

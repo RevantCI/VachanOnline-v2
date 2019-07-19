@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import Grid from "@material-ui/core/Grid";
-import Combo from "../common/Combo";
 import Popover from "@material-ui/core/Popover";
 import { versions } from "../../data/bibledata";
 import Setting from "../common/Setting";
 import BookCombo from "../common/BookCombo";
+import Version from "./Version";
 const useStyles = makeStyles(theme => ({
   read: {
     padding: "0 8%",
@@ -76,14 +76,10 @@ const MenuBar = props => {
   return (
     <Grid container className={classes.read}>
       <Grid item xs={6}>
-        <Combo
-          className={classes.select}
-          name="version"
-          label="Version"
-          options={versions}
-          value={props.version}
-          onchange={val => props.setValue("version", val)}
-          stylePadding="40px"
+        <Version
+          versions={versions}
+          version={props.version}
+          setValue={props.setValue}
         />
         <BookCombo
           book={props.book}

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     background: "#3970a7",
-    padding: "5px 20px",
+    padding: "0px 20px",
     marginBottom: "10px"
   },
   title: {

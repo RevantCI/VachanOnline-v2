@@ -1,4 +1,7 @@
-export const versions = ["", "NIV", "KJV"];
+export const versions = [
+  "English Standard Version (ESV)",
+  "King James Version (KJV)"
+];
 export const bookChapters = {
   Genesis: 50,
   Exodus: 40,

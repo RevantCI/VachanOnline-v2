@@ -10,7 +10,8 @@ const useStyles = makeStyles(theme => ({
     left: theme.spacing(1),
     fontSize: "1rem",
     margin: 9,
-    padding: "10px 0 10px 19px"
+    padding: "6px 0 6px 19px",
+    textTransform: "none"
   },
   icon: {
     left: 15,
@@ -19,14 +20,17 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 580,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: "#3970a7",
+    color: "#fff"
   },
   paper: {
     position: "relative",
     top: 50,
     maxHeight: 400,
     width: 600,
-    border: "1px solid #d3d4d5"
+    border: "1px solid #d3d4d5",
+    backgroundColor: "#3970a7",
+    color: "#fff"
   }
 }));
 export default function BookCombo({ book, chapter, setValue }) {

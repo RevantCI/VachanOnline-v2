@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
     width: 50,
     textAlign: "center",
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+  },
+  book: {
+    borderBottom: "1px solid #cecece26"
   }
 }));
 export default function BookItem({
@@ -29,7 +32,12 @@ export default function BookItem({
   };
   return (
     <>
-      <ListItem value={text} button onClick={event => bookClicked(event)}>
+      <ListItem
+        value={text}
+        button
+        onClick={event => bookClicked(event)}
+        className={classes.book}
+      >
         <ListItemText primary={text} />
       </ListItem>
       <Collapse key={text} in={bookOpen === text} timeout="auto" unmountOnExit>
