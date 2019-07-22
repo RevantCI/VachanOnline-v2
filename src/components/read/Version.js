@@ -15,7 +15,9 @@ const useStyles = makeStyles(theme => ({
     left: theme.spacing(0),
     fontSize: "1rem",
     marginRight: 10,
-    textTransform: "none"
+    textTransform: "none",
+    backgroundColor: "#fff",
+    border: "1px solid #fff"
   },
   list: {
     padding: 0
@@ -62,8 +64,8 @@ const Version = ({ versions, version, setValue, closeMenu }) => {
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
-        variant="contained"
         onClick={handleClick}
+        variant="contained"
         classes={{ root: classes.button }}
       >
         {version}

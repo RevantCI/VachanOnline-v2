@@ -11,7 +11,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1rem",
     margin: 9,
     padding: "6px 0 6px 19px",
-    textTransform: "none"
+    textTransform: "none",
+    backgroundColor: "#fff",
+    border: "1px solid #fff"
   },
   icon: {
     left: 15,

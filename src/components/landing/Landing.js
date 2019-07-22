@@ -1,5 +1,5 @@
 import React from "react";
-import LanguageBar from "./LanguageBar";
+// import LanguageBar from "./LanguageBar";
 import BibleIndex from "../common/BibleIndex";
 import PageHeader from "./PageHeader";
 import Banner from "./Banner";
@@ -15,20 +15,20 @@ const Landing = () => {
     copyright: "copyright@2019 VachanOnline",
     subscribe: "Subscribe"
   };
-  let languages = [
-    "অসমীয়া ",
-    "বাঙালি",
-    "ગુજરાતી",
-    "हिंदी",
-    "ಕನ್ನಡ",
-    "മലയാളം",
-    "मराठी",
-    "ଓଡିଆ",
-    "ਪੰਜਾਬੀ",
-    "தமிழ்",
-    "తెలుగు",
-    "اردو"
-  ];
+  // let languages = [
+  //   "অসমীয়া ",
+  //   "বাঙালি",
+  //   "ગુજરાતી",
+  //   "हिंदी",
+  //   "ಕನ್ನಡ",
+  //   "മലയാളം",
+  //   "मराठी",
+  //   "ଓଡିଆ",
+  //   "ਪੰਜਾਬੀ",
+  //   "தமிழ்",
+  //   "తెలుగు",
+  //   "اردو"
+  // ];
   const [menu, setMenu] = React.useState(false);
   const toggleDrawer = open => event => {
     if (
@@ -68,7 +68,6 @@ const Landing = () => {
         aboutUs={aboutUs}
         contactUs={contactUs}
       />
-      <LanguageBar languages={languages} />
       <Banner />
       <BibleIndex />
       <LandingAboutUs aboutUs={aboutUs} />

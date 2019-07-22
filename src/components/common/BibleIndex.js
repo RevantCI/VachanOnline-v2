@@ -1,5 +1,6 @@
 import React from "react";
-import Combo from "./Combo";
+import BookCombo from "../common/BookCombo";
+import Version from "../read/Version";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -17,17 +18,23 @@ const useStyles = makeStyles(theme => ({
   bibleIndex: {
     margin: "auto",
     position: "relative",
-    bottom: 70,
+    bottom: 80,
     height: "auto",
-    padding: "25px 30px",
-    borderRadius: 20,
-    boxShadow: "2px 2px 3px #968e8e"
+    padding: "15px 30px",
+    // borderRadius: 20,
+    boxShadow: "2px 2px 3px #968e8e",
+    backgroundColor: "#0f3c5f"
   },
   button: {
-    margin: theme.spacing(1.5)
+    margin: theme.spacing(1.5),
+    backgroundColor: "#fff",
+    border: "1px solid #fff",
+    "& hover": {
+      textDecoration: "none"
+    }
   },
   heading: {
-    color: "#2f2f2f",
+    color: "#fff",
     textAlign: "center",
     fontSize: 20,
     paddingTop: 10
@@ -47,26 +54,15 @@ const BibleIndex = props => {
         <Typography variant="h5" gutterBottom className={classes.heading}>
           Read Bible
         </Typography>
-        <Combo
-          name="version"
-          label="Version"
-          options={versions}
-          value={props.version}
-          onchange={val => props.setValue("version", val)}
+        <Version
+          versions={versions}
+          version={props.version}
+          setValue={props.setValue}
         />
-        <Combo
-          name="book"
-          label="Book"
-          options={books}
-          value={props.book}
-          onchange={val => props.setValue("book", val)}
-        />
-        <Combo
-          name="chapter"
-          label="Chapter"
-          options={chapterList}
-          value={props.chapter}
-          onchange={val => props.setValue("chapter", val)}
+        <BookCombo
+          book={props.book}
+          chapter={props.chapter}
+          setValue={props.setValue}
         />
         <Link
           to={{

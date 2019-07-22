@@ -80,6 +80,7 @@ const MenuBar = props => {
           versions={versions}
           version={props.version}
           setValue={props.setValue}
+          style={{ backgroundColor: "#000" }}
         />
         <BookCombo
           book={props.book}
