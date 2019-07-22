@@ -1,4 +1,5 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -8,7 +9,6 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -48,7 +48,6 @@ const Version = ({ versions, version, setValue, closeMenu }) => {
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
-    console.log(anchorEl);
   }
 
   function handleClose() {
@@ -93,7 +92,7 @@ const Version = ({ versions, version, setValue, closeMenu }) => {
         }}
       >
         <ExpansionPanel
-          defaultExpanded="true"
+          defaultExpanded={true}
           classes={{ root: classes.menuRoot }}
         >
           <ExpansionPanelSummary

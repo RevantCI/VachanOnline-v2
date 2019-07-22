@@ -147,7 +147,13 @@ const MenuBar = props => {
         >
           <i className="material-icons md-26">more_vert</i>
         </div>
-        <Setting settingsAnchor={settingsAnchor} handleClose={closeSettings} />
+        <Setting
+          fontSize={props.fontSize}
+          fontFamily={props.fontFamily}
+          setValue={props.setValue}
+          settingsAnchor={settingsAnchor}
+          handleClose={closeSettings}
+        />
       </Grid>
     </Grid>
   );
@@ -156,7 +162,9 @@ const mapStateToProps = state => {
   return {
     version: state.version,
     book: state.book,
-    chapter: state.chapter
+    chapter: state.chapter,
+    fontSize: state.fontSize,
+    fontFamily: state.fontFamily
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -38,17 +38,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const ITEM_HEIGHT = 68;
-const Setting = ({ settingsAnchor, handleClose }) => {
+const Setting = ({
+  fontSize,
+  fontFaily,
+  setValue,
+  settingsAnchor,
+  handleClose
+}) => {
   const classes = useStyles();
   const open = Boolean(settingsAnchor);
-  function valuetext(value) {
-    return `${value}°C`;
-  }
-
-  // function valueLabelFormat(value) {
-  //   return marks.findIndex(mark => mark.value === value) + 1;
-  // }
-
+  const setFontSize = (event, value) => {
+    setValue("fontSize", value);
+  };
+  const setFontFamily = event => {
+    setValue("fontFamily", event.currentTarget.getAttribute("value"));
+  };
   return (
     <>
       <Menu
@@ -67,13 +71,25 @@ const Setting = ({ settingsAnchor, handleClose }) => {
         }}
       >
         <MenuItem className={classes.menu}>Font Family</MenuItem>
-        <MenuItem className={classes.menu} onClick={handleClose}>
+        <MenuItem className={classes.menu}>
           <ButtonGroup
             variant="contained"
             aria-label="Large contained secondary button group"
           >
-            <Button className={classes.sans}>Sans</Button>
-            <Button className={classes.serif}>Serif</Button>
+            <Button
+              className={classes.sans}
+              onClick={setFontFamily}
+              value="Sans"
+            >
+              Sans
+            </Button>
+            <Button
+              className={classes.serif}
+              onClick={setFontFamily}
+              value="Serif"
+            >
+              Serif
+            </Button>
           </ButtonGroup>
         </MenuItem>
 
@@ -81,11 +97,10 @@ const Setting = ({ settingsAnchor, handleClose }) => {
         <MenuItem className={classes.menu}>
           <div className={classes.margin} />
           <Slider
-            defaultValue={16}
-            getAriaValueText={valuetext}
-            aria-labelledby="discrete-slider-always"
-            step={2}
+            value={fontSize}
+            step={1}
             marks
+            onChange={setFontSize}
             valueLabelDisplay="on"
             min={12}
             max={20}
