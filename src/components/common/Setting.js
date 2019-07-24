@@ -98,8 +98,6 @@ const Setting = ({
           <div className={classes.margin} />
           <Slider
             value={fontSize}
-            step={1}
-            marks
             onChange={setFontSize}
             valueLabelDisplay="on"
             min={12}
