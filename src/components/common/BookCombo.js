@@ -96,12 +96,12 @@ export default function BookCombo({ book, chapter, setValue }) {
           aria-labelledby="nested-list-subheader"
           className={classes.root}
         >
-          {books.map((text, id) => (
+          {books.map(text => (
             <BookItem
               text={text}
-              key={id}
-              chapters={chapterList}
-              bookOpen={bookOpen}
+              key={text}
+              chapterList={chapterList}
+              bookOpen={bookOpen === text}
               bookClicked={bookClicked}
               setValue={setValue}
               closeMenu={closeMenu}

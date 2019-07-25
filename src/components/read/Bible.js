@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import API from "../../store/api";
 import { makeStyles } from "@material-ui/styles";
 import { bookChapters } from "../../data/bibledata";
 import { connect } from "react-redux";
@@ -11,8 +11,6 @@ const useStyles = makeStyles(theme => ({
     padding: "25px 8%",
     backgroundColor: "white",
     lineHeight: 2,
-    fontFamily: "var(--fontFamily)",
-    fontSize: "var(--fontSize",
     "& p": {
       textAlign: "justify",
       color: "#616161"
@@ -20,27 +18,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const Bible = props => {
-  const instance = axios.create({
-    baseURL: "https://stagingapi.autographamt.com/v1/sources/18/json/",
-    timeout: 1000
-  });
   const fontFamily = props.fontFamily === "Sans" ? "Roboto" : "Roboto Slab";
   const [bibleVerses, setBibleVerses] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
     console.log(props.book);
-    let bookNo = Object.keys(bookChapters); //.indexOf(props.book);
-    console.log(bookNo);
-    console.log(bookNo.indexOf(props.book) + 1);
-    instance
-      .get("58/" + props.chapter)
+    let bookNo = Object.keys(bookChapters).indexOf(props.book) + 1;
+    setIsLoading(true);
+    API.get(bookNo + "/" + props.chapter)
       .then(function(response) {
         setBibleVerses(response.data.verses);
-        setIsLoading(false);
+        if (response.data.verses !== undefined) setIsLoading(false);
       })
       .catch(function(error) {
         console.log(error);
-        setIsLoading(false);
       });
   }, [props.book, props.chapter]);
 
@@ -65,7 +56,7 @@ const Bible = props => {
           })}
         </p>
       ) : (
-        <h3>Loading...</h3>
+        <h3>Book not available</h3>
       )}
       <Fab
         size="small"

@@ -16,20 +16,21 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "1px solid #cecece26"
   }
 }));
-export default function BookItem({
+const BookItem = ({
   text,
-  chapters,
+  chapterList,
   bookOpen,
   bookClicked,
   setValue,
   closeMenu
-}) {
+}) => {
   const classes = useStyles();
   const clickChapter = event => {
     closeMenu();
-    setValue("book", bookOpen);
+    setValue("book", text);
     setValue("chapter", event.currentTarget.getAttribute("value"));
   };
+
   return (
     <>
       <ListItem
@@ -40,9 +41,9 @@ export default function BookItem({
       >
         <ListItemText primary={text} />
       </ListItem>
-      <Collapse key={text} in={bookOpen === text} timeout="auto" unmountOnExit>
+      <Collapse key={text} in={bookOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {chapters.map((chapter, i) => (
+          {chapterList.map((chapter, i) => (
             <ListItem
               key={text + i}
               value={chapter}
@@ -57,4 +58,5 @@ export default function BookItem({
       </Collapse>
     </>
   );
-}
+};
+export default BookItem;
