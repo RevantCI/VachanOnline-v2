@@ -1,11 +1,11 @@
 import React from "react";
-import API from "../../store/api";
-import { makeStyles } from "@material-ui/styles";
-import { bookChapters } from "../../data/bibledata";
 import { connect } from "react-redux";
+import { makeStyles } from "@material-ui/styles";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import API from "../../store/api";
+import { bookChapters } from "../../data/bibledata";
 const useStyles = makeStyles(theme => ({
   biblePanel: {
     padding: "25px 8%",

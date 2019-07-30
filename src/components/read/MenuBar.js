@@ -5,9 +5,9 @@ import * as actions from "../../store/actions";
 import Grid from "@material-ui/core/Grid";
 import Popover from "@material-ui/core/Popover";
 import { versions } from "../../data/bibledata";
-import Setting from "../common/Setting";
+import Setting from "../read/Setting";
 import BookCombo from "../common/BookCombo";
-import Version from "./Version";
+import Version from "../common/Version";
 const useStyles = makeStyles(theme => ({
   read: {
     padding: "0 8%",

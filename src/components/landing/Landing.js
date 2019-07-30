@@ -1,6 +1,6 @@
 import React from "react";
 // import LanguageBar from "./LanguageBar";
-import BibleIndex from "../common/BibleIndex";
+import BibleIndex from "../landing/BibleIndex";
 import PageHeader from "./PageHeader";
 import Banner from "./Banner";
 import LandingFooter from "./LandingFooter";

@@ -1,14 +1,14 @@
 import React from "react";
-import BookCombo from "../common/BookCombo";
-import Version from "../read/Version";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
+import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
-import * as actions from "../../store/actions";
-import { Link } from "react-router-dom";
 import { versions, bookChapters } from "../../data/bibledata";
+import BookCombo from "../common/BookCombo";
+import Version from "../common/Version";
 const useStyles = makeStyles(theme => ({
   container: {
     width: "100%",
@@ -67,8 +67,8 @@ const BibleIndex = props => {
         <Link
           to={{
             pathname: "/read",
-            hash: "#submit",
-            search: "?quick-search=true"
+            hash: "#book",
+            search: "?search=term"
           }}
         >
           <Button variant="contained" className={classes.button}>
