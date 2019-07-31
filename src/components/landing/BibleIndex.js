@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import { versions, bookChapters } from "../../data/bibledata";
+import { bookChapters } from "../../data/bibledata";
 import BookCombo from "../common/BookCombo";
 import Version from "../common/Version";
 const useStyles = makeStyles(theme => ({
@@ -55,7 +55,7 @@ const BibleIndex = props => {
           Read Bible
         </Typography>
         <Version
-          versions={versions}
+          versions={props.versions}
           version={props.version}
           setValue={props.setValue}
         />
@@ -85,7 +85,8 @@ const mapStateToProps = state => {
   return {
     version: state.version,
     book: state.book,
-    chapter: state.chapter
+    chapter: state.chapter,
+    versions: state.versions
   };
 };
 const mapDispatchToProps = dispatch => {

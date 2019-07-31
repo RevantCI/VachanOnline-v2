@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 // import LanguageBar from "./LanguageBar";
 import BibleIndex from "../landing/BibleIndex";
 import PageHeader from "./PageHeader";
@@ -8,8 +10,9 @@ import Grid from "@material-ui/core/Grid";
 import LandingMenu from "./LandingMenu";
 import "./Landing.css";
 import LandingAboutUs from "./LandingAboutUs";
+import { getVersions, getBooks } from "../common/utillity";
 
-const Landing = () => {
+const Landing = props => {
   let footerData = {
     links: ["About us", "Contact us", "Feedback"],
     copyright: "copyright@2019 VachanOnline",
@@ -26,9 +29,18 @@ const Landing = () => {
   //   "ଓଡିଆ",
   //   "ਪੰਜਾਬੀ",
   //   "தமிழ்",
-  //   "తెలుగు",
+  //   "తెలుగు",s
   //   "اردو"
   // ];
+  React.useEffect(() => {
+    if (props.version === "Loading...") {
+      getVersions(props.setValue);
+    }
+    if (props.sourceId !== "") {
+      getBooks(props.setValue, props.sourceId);
+    }
+  }, [props.sourceId, props.setValue, props.version]);
+
   const [menu, setMenu] = React.useState(false);
   const toggleDrawer = open => event => {
     if (
@@ -75,4 +87,22 @@ const Landing = () => {
     </Grid>
   );
 };
-export default Landing;
+const mapStateToProps = state => {
+  return {
+    version: state.version,
+    versions: state.versions,
+    book: state.book,
+    books: state.books,
+    sourceId: state.sourceId
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setValue: (name, value) =>
+      dispatch({ type: actions.SETVALUE, name: name, value: value })
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Landing);

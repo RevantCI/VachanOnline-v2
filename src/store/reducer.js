@@ -1,7 +1,11 @@
 import * as actions from "./actions";
 const defaultState = {
-  version: "English Standard Version (ESV)",
-  book: "Genesis",
+  versions: [],
+  version: "Loading...",
+  sourceId: "",
+  books: [],
+  book: "Loading...",
+  bookCode: "",
   chapter: "1",
   fontSize: 16,
   fontFamily: "Sans"

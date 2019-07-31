@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import Grid from "@material-ui/core/Grid";
 import Popover from "@material-ui/core/Popover";
-import { versions } from "../../data/bibledata";
 import Setting from "../read/Setting";
 import BookCombo from "../common/BookCombo";
 import Version from "../common/Version";
@@ -77,7 +76,7 @@ const MenuBar = props => {
     <Grid container className={classes.read}>
       <Grid item xs={6}>
         <Version
-          versions={versions}
+          versions={props.versions}
           version={props.version}
           setValue={props.setValue}
           style={{ backgroundColor: "#000" }}
@@ -164,7 +163,8 @@ const mapStateToProps = state => {
     book: state.book,
     chapter: state.chapter,
     fontSize: state.fontSize,
-    fontFamily: state.fontFamily
+    fontFamily: state.fontFamily,
+    versions: state.versions
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -9,6 +9,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
+import { getVersions } from "../common/utillity";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -24,16 +25,23 @@ const useStyles = makeStyles(theme => ({
   },
   menuRoot: {
     backgroundColor: "#3970a7",
-    color: "#fff"
+    color: "#fff",
+    boxShadow: "none"
+  },
+  expansionDetails: {
+    backgroundColor: "#3970a7",
+    color: "#fff",
+    boxShadow: "none",
+    padding: "0 0 0 20px"
   },
   border: {
+    textTransform: "capitalize",
     borderBottom: "1px solid #cecece26"
   },
   icon: {
     left: 15,
     position: "relative"
   },
-
   paper: {
     maxHeight: 400,
     width: 300,
@@ -42,17 +50,25 @@ const useStyles = makeStyles(theme => ({
     color: "#fff"
   }
 }));
-const Version = ({ versions, version, setValue, closeMenu }) => {
+const Version = ({ versions, version, setValue }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [isLoading, setIsLoading] = React.useState(false);
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
   }
+  React.useEffect(() => {
+    if (version === "Loading...") {
+      getVersions(setValue);
+    }
+  });
 
   function handleClose() {
     setAnchorEl(null);
   }
+  React.useEffect(() => {
+    setIsLoading(versions.length > 0);
+  }, [versions]);
   const setVersion = event => {
     handleClose();
     setValue("version", event.currentTarget.getAttribute("value"));
@@ -70,51 +86,61 @@ const Version = ({ versions, version, setValue, closeMenu }) => {
         {version}
         <i className={classesI}>keyboard_arrow_downn</i>
       </Button>
-      <Menu
-        elevation={0}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center"
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center"
-        }}
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        classes={{
-          list: classes.list,
-          paper: classes.paper
-        }}
-      >
-        <ExpansionPanel
-          defaultExpanded={true}
-          classes={{ root: classes.menuRoot }}
-        >
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            className={classes.border}
+      {!isLoading ? (
+        ""
+      ) : (
+        <>
+          <Menu
+            elevation={0}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center"
+            }}
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            classes={{
+              list: classes.list,
+              paper: classes.paper
+            }}
           >
-            <Typography>English</Typography>
-          </ExpansionPanelSummary>
-
-          <ExpansionPanelDetails style={{ padding: "0px 0px 20px 0px" }}>
-            <List className={classes.menuRoot}>
-              {versions.map((text, i) => (
-                <ListItem key={i} value={text} onClick={setVersion}>
-                  {text}
-                </ListItem>
-              ))}
-            </List>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </Menu>
+            {versions.map((version, i) => (
+              <ExpansionPanel
+                defaultExpanded={true}
+                classes={{ root: classes.menuRoot }}
+                key={i}
+              >
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  className={classes.border}
+                >
+                  <Typography>{version.language}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails style={{ padding: 0 }}>
+                  <List className={classes.expansionDetails}>
+                    {version.languageVersions.map((item, i) => (
+                      <ListItem
+                        key={i}
+                        value={item.version.name}
+                        onClick={setVersion}
+                      >
+                        {item.version.name}
+                      </ListItem>
+                    ))}
+                  </List>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            ))}
+          </Menu>
+        </>
+      )}
     </>
   );
 };
