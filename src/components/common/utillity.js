@@ -20,17 +20,30 @@ export const getVersions = setValue => {
       setValue("versions", versions);
       if (versions.length > 0) {
         setValue("version", versions[0].languageVersions[0].version.name);
-        setValue("sourceId", versions[0].languageVersions[0].sourceId);
+        setValue("sourceId", versions[0].languageVersions[1].sourceId);
+        getBooks(setValue, versions[0].languageVersions[1].sourceId);
+        resetBookData(setValue);
       }
     })
     .catch(function(error) {
       console.log(error);
     });
 };
+const resetBookData = setValue => {
+  setValue("bookList", []);
+  setValue("book", "Loading...");
+  setValue("bookCode", "");
+};
 export const getBooks = (setValue, sourceId) => {
   API.get("bibles/" + sourceId + "/books")
     .then(function(response) {
-      console.log(response);
+      var books = response.data[0].books.sort(
+        (a, b) => a.bibleBookID - b.bibleBookID
+      );
+      setValue("bookList", books);
+      setValue("book", books[0].bibleBookFullName);
+      setValue("bookCode", books[0].abbreviation);
+      setValue("chapter", "1");
     })
     .catch(function(error) {
       console.log(error);

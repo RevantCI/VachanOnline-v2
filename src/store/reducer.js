@@ -3,10 +3,11 @@ const defaultState = {
   versions: [],
   version: "Loading...",
   sourceId: "",
-  books: [],
+  bookList: [],
   book: "Loading...",
   bookCode: "",
-  chapter: "1",
+  chapterList: [],
+  chapter: "",
   fontSize: 16,
   fontFamily: "Sans"
 };

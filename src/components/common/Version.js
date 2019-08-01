@@ -9,7 +9,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
-import { getVersions } from "../common/utillity";
+import { getVersions, getBooks } from "../common/utillity";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -53,25 +53,22 @@ const useStyles = makeStyles(theme => ({
 const Version = ({ versions, version, setValue }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isLoading, setIsLoading] = React.useState(false);
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
   }
   React.useEffect(() => {
-    if (version === "Loading...") {
+    if (versions.length === 0) {
       getVersions(setValue);
     }
-  });
+  }, [setValue, versions]);
 
   function handleClose() {
     setAnchorEl(null);
   }
-  React.useEffect(() => {
-    setIsLoading(versions.length > 0);
-  }, [versions]);
   const setVersion = event => {
     handleClose();
     setValue("version", event.currentTarget.getAttribute("value"));
+    getBooks(setValue, event.currentTarget.getAttribute("data-sourceid"));
   };
   const classesI = `material-icons ${classes.icon}`;
   return (
@@ -86,7 +83,7 @@ const Version = ({ versions, version, setValue }) => {
         {version}
         <i className={classesI}>keyboard_arrow_downn</i>
       </Button>
-      {!isLoading ? (
+      {versions.length === 0 ? (
         ""
       ) : (
         <>
@@ -129,6 +126,7 @@ const Version = ({ versions, version, setValue }) => {
                       <ListItem
                         key={i}
                         value={item.version.name}
+                        data-sourceid={item.sourceId}
                         onClick={setVersion}
                       >
                         {item.version.name}
