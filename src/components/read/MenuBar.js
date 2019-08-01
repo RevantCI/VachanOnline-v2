@@ -83,7 +83,11 @@ const MenuBar = props => {
         />
         <BookCombo
           book={props.book}
+          bookList={props.bookList}
+          bookCode={props.bookCode}
+          chapterList={props.chapterList}
           chapter={props.chapter}
+          sourceId={props.sourceId}
           setValue={props.setValue}
         />
       </Grid>
@@ -160,7 +164,11 @@ const MenuBar = props => {
 const mapStateToProps = state => {
   return {
     version: state.version,
+    sourceId: state.sourceId,
     book: state.book,
+    bookList: state.bookList,
+    bookCode: state.bookCode,
+    chapterList: state.chapterList,
     chapter: state.chapter,
     fontSize: state.fontSize,
     fontFamily: state.fontFamily,

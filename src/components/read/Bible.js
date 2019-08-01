@@ -5,7 +5,6 @@ import Fab from "@material-ui/core/Fab";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import API from "../../store/api";
-import { bookChapters } from "../../data/bibledata";
 const useStyles = makeStyles(theme => ({
   biblePanel: {
     padding: "25px 8%",
@@ -22,18 +21,26 @@ const Bible = props => {
   const [bibleVerses, setBibleVerses] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
-    console.log(props.book);
-    let bookNo = Object.keys(bookChapters).indexOf(props.book) + 1;
-    setIsLoading(true);
-    API.get(bookNo + "/" + props.chapter)
-      .then(function (response) {
-        setBibleVerses(response.data.verses);
-        if (response.data.verses !== undefined) setIsLoading(false);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [props.book, props.chapter]);
+    if (props.sourceId && props.bookCode && props.chapter) {
+      setIsLoading(true);
+      API.get(
+        "bibles/" +
+          props.sourceId +
+          "/books/" +
+          props.bookCode +
+          "/chapters/" +
+          props.chapter +
+          "/verses/1"
+      )
+        .then(function(response) {
+          setBibleVerses(response.data);
+          setIsLoading(false);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  }, [props.sourceId, props.bookCode, props.chapter]);
 
   const classes = useStyles();
   return (
@@ -46,18 +53,13 @@ const Bible = props => {
     >
       {!isLoading ? (
         <p>
-          {bibleVerses.map(verse => {
-            const { number, text } = verse;
-            return (
-              <span key={number}>
-                {number}. {text}
-              </span>
-            );
-          })}
+          <span>
+            {bibleVerses.verseNumber}. {bibleVerses.verseContent.text}
+          </span>
         </p>
       ) : (
-          <h3>Book not available</h3>
-        )}
+        <h3>Loading</h3>
+      )}
       <Fab
         size="small"
         color="default"
@@ -85,7 +87,8 @@ const mapStateToProps = state => {
   return {
     fontSize: state.fontSize,
     fontFamily: state.fontFamily,
-    book: state.book,
+    sourceId: state.sourceId,
+    bookCode: state.bookCode,
     chapter: state.chapter
   };
 };

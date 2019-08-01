@@ -64,7 +64,9 @@ const BibleIndex = props => {
           book={props.book}
           bookList={props.bookList}
           bookCode={props.bookCode}
+          chapterList={props.chapterList}
           chapter={props.chapter}
+          sourceId={props.sourceId}
           setValue={props.setValue}
         />
         <Link
@@ -90,8 +92,10 @@ const mapStateToProps = state => {
     bookList: state.bookList,
     book: state.book,
     bookCode: state.bookCode,
+    chapterList: state.chapterList,
     chapter: state.chapter,
-    versions: state.versions
+    versions: state.versions,
+    sourceId: state.sourceId
   };
 };
 const mapDispatchToProps = dispatch => {
