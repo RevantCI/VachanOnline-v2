@@ -48,6 +48,7 @@ const BibleIndex = props => {
   books.unshift("");
   chapterList.unshift("");
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
       <Paper className={classes.bibleIndex}>
@@ -61,6 +62,8 @@ const BibleIndex = props => {
         />
         <BookCombo
           book={props.book}
+          bookList={props.bookList}
+          bookCode={props.bookCode}
           chapter={props.chapter}
           setValue={props.setValue}
         />
@@ -84,7 +87,9 @@ const BibleIndex = props => {
 const mapStateToProps = state => {
   return {
     version: state.version,
+    bookList: state.bookList,
     book: state.book,
+    bookCode: state.bookCode,
     chapter: state.chapter,
     versions: state.versions
   };

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
@@ -26,11 +26,11 @@ const Bible = props => {
     let bookNo = Object.keys(bookChapters).indexOf(props.book) + 1;
     setIsLoading(true);
     API.get(bookNo + "/" + props.chapter)
-      .then(function(response) {
+      .then(function (response) {
         setBibleVerses(response.data.verses);
         if (response.data.verses !== undefined) setIsLoading(false);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }, [props.book, props.chapter]);
@@ -56,8 +56,8 @@ const Bible = props => {
           })}
         </p>
       ) : (
-        <h3>Book not available</h3>
-      )}
+          <h3>Book not available</h3>
+        )}
       <Fab
         size="small"
         color="default"

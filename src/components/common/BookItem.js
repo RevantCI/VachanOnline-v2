@@ -7,13 +7,27 @@ import List from "@material-ui/core/List";
 const useStyles = makeStyles(theme => ({
   nested: {
     marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(0),
     display: "inline-block",
     width: 50,
+    backgroundColor: "#00C4FD",
     textAlign: "center",
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   },
   book: {
-    borderBottom: "1px solid #cecece26"
+    border: "1px solid #cecece26",
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    paddingBottom: 1,
+    display: "inline-block",
+    width: 160,
+    transition: "width 600ms ease-out, height 600ms ease-out",
+    textAlign: "center",
+    padding: "0px 0px",
+    backgroundColor: "red"
   }
 }));
 const BookItem = ({

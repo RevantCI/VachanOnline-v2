@@ -1,6 +1,6 @@
 import API from "../../store/api";
 const parseVersions = versions => {
-  return versions.reduce(function(lang, version) {
+  return versions.reduce(function (lang, version) {
     let index = lang.findIndex(x => x.language === version.language.name);
     if (index === -1) {
       lang[lang.length] = {
@@ -15,17 +15,16 @@ const parseVersions = versions => {
 };
 export const getVersions = setValue => {
   API.get("bibles")
-    .then(function(response) {
+    .then(function (response) {
       const versions = parseVersions(response.data);
       setValue("versions", versions);
       if (versions.length > 0) {
-        setValue("version", versions[0].languageVersions[0].version.name);
+        setValue("version", versions[0].languageVersions[1].version.name);
         setValue("sourceId", versions[0].languageVersions[1].sourceId);
         getBooks(setValue, versions[0].languageVersions[1].sourceId);
-        resetBookData(setValue);
       }
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 };
@@ -35,8 +34,9 @@ const resetBookData = setValue => {
   setValue("bookCode", "");
 };
 export const getBooks = (setValue, sourceId) => {
+  resetBookData(setValue);
   API.get("bibles/" + sourceId + "/books")
-    .then(function(response) {
+    .then(function (response) {
       var books = response.data[0].books.sort(
         (a, b) => a.bibleBookID - b.bibleBookID
       );
@@ -45,7 +45,7 @@ export const getBooks = (setValue, sourceId) => {
       setValue("bookCode", books[0].abbreviation);
       setValue("chapter", "1");
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 };
