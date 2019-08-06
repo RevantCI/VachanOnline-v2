@@ -24,16 +24,17 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 940,
-    backgroundColor: "#3970a7",
-    color: "#fff"
+    backgroundColor: "white",
+    color: "#black"
   },
   paper: {
     position: "relative",
     top: 50,
     maxHeight: 580,
     width: 940,
-    backgroundColor: "#3970a7",
-    color: "#fff"
+    backgroundColor: "#EEEFF3",
+    color: "#343454",
+    opacity: ".8"
   },
   book: {
     borderBottom: "1px solid #cecece26",
@@ -54,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(0),
     display: "inline-block",
     width: 50,
-    // backgroundColor: "#00C4FD",
+    //backgroundColor: "#00C4FD",
     textAlign: "center",
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   }

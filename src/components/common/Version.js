@@ -68,6 +68,7 @@ const Version = ({ versions, version, setValue }) => {
   const setVersion = event => {
     handleClose();
     setValue("version", event.currentTarget.getAttribute("value"));
+    setValue("sourceId", event.currentTarget.getAttribute("data-sourceid"));
     getBooks(setValue, event.currentTarget.getAttribute("data-sourceid"));
   };
   const classesI = `material-icons ${classes.icon}`;

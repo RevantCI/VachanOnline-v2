@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const Bible = props => {
   const fontFamily = props.fontFamily === "Sans" ? "Roboto" : "Roboto Slab";
-  const [bibleVerses, setBibleVerses] = React.useState([]);
+  const [verses, setVerses] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
     if (props.sourceId && props.bookCode && props.chapter) {
@@ -28,12 +28,12 @@ const Bible = props => {
           props.sourceId +
           "/books/" +
           props.bookCode +
-          "/chapters/" +
-          props.chapter +
-          "/verses/1"
+          "/chapter/" +
+          props.chapter
       )
         .then(function(response) {
-          setBibleVerses(response.data);
+          console.log(response);
+          setVerses(response.data.chapterContent.verses);
           setIsLoading(false);
         })
         .catch(function(error) {
@@ -53,9 +53,11 @@ const Bible = props => {
     >
       {!isLoading ? (
         <p>
-          <span>
-            {bibleVerses.verseNumber}. {bibleVerses.verseContent.text}
-          </span>
+          {verses.map(item => (
+            <span>
+              {item.number}. {item.text}
+            </span>
+          ))}
         </p>
       ) : (
         <h3>Loading</h3>
