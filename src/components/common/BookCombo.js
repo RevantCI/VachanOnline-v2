@@ -24,20 +24,23 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 940,
-    backgroundColor: "white",
-    color: "#black"
+    backgroundColor: "#ffffff",
+    textTransform: "capitalize"
+  },
+  transparentRoot: {
+    backgroundColor: "#ffffff70"
   },
   paper: {
     position: "relative",
-    top: 50,
     maxHeight: 580,
     width: 940,
-    backgroundColor: "#EEEFF3",
-    color: "#343454",
-    opacity: ".8"
+    backgroundColor: "#eeefff",
+    color: "#2a2a2a"
+  },
+  transparentPaper: {
+    backgroundColor: "#eeefff90"
   },
   book: {
-    borderBottom: "1px solid #cecece26",
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(2),
@@ -48,14 +51,20 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     padding: "0px 0px"
   },
-  nested: {
+  active: {
+    backgroundColor: "#7b94da"
+  },
+  openBook: {
+    border: "1px solid #2a2a2a"
+  },
+  chapter: {
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(0),
     display: "inline-block",
     width: 50,
-    //backgroundColor: "#00C4FD",
+    backgroundColor: "#ffffff90",
     textAlign: "center",
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   }
@@ -67,19 +76,22 @@ export default function BookCombo({
   chapterList,
   chapter,
   sourceId,
-  setValue
+  setValue,
+  transparent = false
 }) {
   const classes = useStyles();
   const bookDropdown = React.useRef(null);
   // const books = Object.keys(bookChapters);
 
   const [bookOpen, setBookOpen] = React.useState(book);
+  const [bookOpened, setBookOpened] = React.useState("");
   function bookClicked(event) {
     if (bookOpen !== event.currentTarget.innerText) {
       let index = parseInt(event.currentTarget.getAttribute("data-count"));
       let row = parseInt((index + 4) / 5);
       let lastRow = parseInt((bookList.length + 4) / 5);
       setBookOpen(lastRow === row ? bookList.length : row * 5);
+      setBookOpened(event.currentTarget.getAttribute("value"));
       setValue("chapterList", []);
       getChapters(
         setValue,
@@ -105,6 +117,10 @@ export default function BookCombo({
       .split(" ");
     setValue("chapter", reference.pop());
     setValue("book", reference.join(" "));
+    setValue(
+      "bookCode",
+      event.currentTarget.getAttribute("data-bookcode").toLowerCase()
+    );
   };
   const classesI = `material-icons ${classes.icon}`;
   return (
@@ -140,53 +156,72 @@ export default function BookCombo({
           open={openCombo}
           onClose={closeMenu}
           classes={{
-            paper: classes.paper
+            paper: transparent
+              ? `${classes.paper} ${classes.transparentPaper}`
+              : classes.paper
           }}
         >
           <List
             component="nav"
             aria-labelledby="nested-list-subheader"
-            className={classes.root}
+            className={
+              transparent
+                ? `${classes.root} ${classes.transparentRoot}`
+                : classes.root
+            }
           >
-            {bookList.map((item, i) => (
-              <React.Fragment key={item.bibleBookID}>
-                <ListItem
-                  value={item.bibleBookFullName}
-                  data-bookcode={item.abbreviation}
-                  data-sourceid={item.sourceId}
-                  data-count={i + 1}
-                  button
-                  onClick={event => bookClicked(event)}
-                  className={classes.book}
-                >
-                  <ListItemText primary={item.bibleBookFullName} />
-                </ListItem>
-                {bookOpen === i + 1 ? (
-                  <Collapse
-                    in={chapterList && chapterList.length !== 0}
-                    timeout="auto"
-                    unmountOnExit
+            {bookList.map((item, i) => {
+              let open =
+                bookOpened === item.bibleBookFullName ? classes.openBook : "";
+              var bookActive =
+                bookCode === item.abbreviation ? classes.active : "";
+              return (
+                <React.Fragment key={item.bibleBookID}>
+                  <ListItem
+                    value={item.bibleBookFullName}
+                    data-bookcode={item.abbreviation}
+                    data-sourceid={item.sourceId}
+                    data-count={i + 1}
+                    button
+                    onClick={event => bookClicked(event)}
+                    className={`${classes.book} ${open} ${bookActive}`}
                   >
-                    <List component="div" disablePadding>
-                      {chapterList.map((item, i) => (
-                        <ListItem
-                          key={item.chapter.chapterId}
-                          value={item.chapter.number}
-                          data-reference={item.chapter.reference}
-                          button
-                          className={classes.nested}
-                          onClick={clickChapter}
-                        >
-                          {item.chapter.number}
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Collapse>
-                ) : (
-                  ""
-                )}
-              </React.Fragment>
-            ))}
+                    <ListItemText primary={item.bibleBookFullName} />
+                  </ListItem>
+                  {bookOpen === i + 1 ? (
+                    <Collapse
+                      in={chapterList && chapterList.length !== 0}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      <List component="div" disablePadding>
+                        {chapterList.map((item, i) => {
+                          var chapterActive =
+                            item.chapter.reference === book + " " + chapter
+                              ? classes.active
+                              : "";
+                          return (
+                            <ListItem
+                              value={item.chapter.number}
+                              key={item.chapter.chapterId}
+                              data-reference={item.chapter.reference}
+                              data-bookcode={item.bibleBookCode}
+                              button
+                              className={`${chapterActive} ${classes.chapter}`}
+                              onClick={clickChapter}
+                            >
+                              {item.chapter.number}
+                            </ListItem>
+                          );
+                        })}
+                      </List>
+                    </Collapse>
+                  ) : (
+                    ""
+                  )}
+                </React.Fragment>
+              );
+            })}
           </List>
         </Menu>
       )}

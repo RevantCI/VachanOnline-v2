@@ -4,7 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import * as actions from "../../store/actions";
 import API from "../../store/api";
+import { nextChapter, previousChapter } from "../common/utillity";
 const useStyles = makeStyles(theme => ({
   biblePanel: {
     padding: "25px 8%",
@@ -12,12 +14,18 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 2,
     "& p": {
       textAlign: "justify",
+      color: "#616161",
+      marginBottom: 5
+    },
+    "& span": {
+      textAlign: "justify",
       color: "#616161"
     }
   }
 }));
 const Bible = props => {
-  const fontFamily = props.fontFamily === "Sans" ? "Roboto" : "Roboto Slab";
+  const fontFamily =
+    props.fontFamily === "Sans" ? "Roboto,Noto Sans" : "Roboto Slab,Martel";
   const [verses, setVerses] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
@@ -32,7 +40,6 @@ const Bible = props => {
           props.chapter
       )
         .then(function(response) {
-          console.log(response);
           setVerses(response.data.chapterContent.verses);
           setIsLoading(false);
         })
@@ -42,6 +49,30 @@ const Bible = props => {
     }
   }, [props.sourceId, props.bookCode, props.chapter]);
 
+  const prevClick = () => {
+    if (!isLoading) {
+      previousChapter(
+        props.setValue,
+        props.sourceId,
+        props.chapterList,
+        props.chapter,
+        props.bookList,
+        props.bookCode
+      );
+    }
+  };
+  const nextClick = () => {
+    if (!isLoading) {
+      nextChapter(
+        props.setValue,
+        props.sourceId,
+        props.chapterList,
+        props.chapter,
+        props.bookList,
+        props.bookCode
+      );
+    }
+  };
   const classes = useStyles();
   return (
     <div
@@ -52,13 +83,25 @@ const Bible = props => {
       }}
     >
       {!isLoading ? (
-        <p>
+        <div>
           {verses.map(item => (
-            <span>
-              {item.number}. {item.text}
+            <span key={item.number}>
+              {item.metadata &&
+              item.metadata[0] &&
+              item.metadata[0]["styling"] &&
+              (item.metadata[0]["styling"][0] === "p" ||
+                item.metadata[0]["styling"][0].startsWith("q")) ? (
+                <p>
+                  {item.number}. {item.text}
+                </p>
+              ) : (
+                <span>
+                  {item.number}. {item.text}
+                </span>
+              )}
             </span>
           ))}
-        </p>
+        </div>
       ) : (
         <h3>Loading</h3>
       )}
@@ -67,6 +110,7 @@ const Bible = props => {
         color="default"
         aria-label="Add"
         style={{ position: "fixed", top: "50vh", left: "2%" }}
+        onClick={prevClick}
       >
         <KeyboardArrowLeft />
       </Fab>
@@ -74,11 +118,8 @@ const Bible = props => {
         size="small"
         color="default"
         aria-label="Add"
-        style={{
-          position: "fixed",
-          top: "50vh",
-          right: "3%"
-        }}
+        style={{ position: "fixed", top: "50vh", right: "3%" }}
+        onClick={nextClick}
       >
         <KeyboardArrowRight />
       </Fab>
@@ -91,7 +132,18 @@ const mapStateToProps = state => {
     fontFamily: state.fontFamily,
     sourceId: state.sourceId,
     bookCode: state.bookCode,
-    chapter: state.chapter
+    chapter: state.chapter,
+    chapterList: state.chapterList,
+    bookList: state.bookList
   };
 };
-export default connect(mapStateToProps)(Bible);
+const mapDispatchToProps = dispatch => {
+  return {
+    setValue: (name, value) =>
+      dispatch({ type: actions.SETVALUE, name: name, value: value })
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Bible);

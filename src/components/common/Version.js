@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     left: theme.spacing(0),
     fontSize: "1rem",
     marginRight: 10,
-    textTransform: "none",
+    textTransform: "capitalize",
     backgroundColor: "#fff",
     border: "1px solid #fff"
   },
@@ -26,17 +26,31 @@ const useStyles = makeStyles(theme => ({
   menuRoot: {
     backgroundColor: "#3970a7",
     color: "#fff",
-    boxShadow: "none"
+    boxShadow: "none",
+    "&$expanded": {
+      margin: 0
+    }
   },
+  expanded: {},
   expansionDetails: {
-    backgroundColor: "#3970a7",
+    backgroundColor: "#4e7aa7",
     color: "#fff",
     boxShadow: "none",
-    padding: "0 0 0 20px"
+    padding: "0 0 0 20px",
+    width: "100%"
   },
-  border: {
+  summaryPanel: {
     textTransform: "capitalize",
-    borderBottom: "1px solid #cecece26"
+    borderBottom: "1px solid #b7b7b726",
+    "&$expanded": {
+      minHeight: 50
+    }
+  },
+  content: {
+    margin: "10px 0",
+    "&$expanded": {
+      margin: "12px 0"
+    }
   },
   icon: {
     left: 15,
@@ -48,6 +62,12 @@ const useStyles = makeStyles(theme => ({
     border: "1px solid #d3d4d5",
     backgroundColor: "#3970a7",
     color: "#fff"
+  },
+  language: {
+    fontSize: "1.2rem"
+  },
+  version: {
+    fontSize: "1rem"
   }
 }));
 const Version = ({ versions, version, setValue }) => {
@@ -112,25 +132,39 @@ const Version = ({ versions, version, setValue }) => {
             {versions.map((version, i) => (
               <ExpansionPanel
                 defaultExpanded={true}
-                classes={{ root: classes.menuRoot }}
+                classes={{
+                  root: classes.menuRoot,
+                  expanded: classes.expanded
+                }}
                 key={i}
               >
                 <ExpansionPanelSummary
                   expandIcon={<ExpandMoreIcon />}
-                  className={classes.border}
+                  classes={{
+                    root: classes.summaryPanel,
+                    expanded: classes.expanded,
+                    content: classes.content
+                  }}
                 >
-                  <Typography>{version.language}</Typography>
+                  <Typography className={classes.language}>
+                    {version.language}
+                  </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ padding: 0 }}>
                   <List className={classes.expansionDetails}>
                     {version.languageVersions.map((item, i) => (
                       <ListItem
                         key={i}
-                        value={item.version.name}
+                        value={
+                          item.language.name +
+                          "-" +
+                          item.version.code.toUpperCase()
+                        }
                         data-sourceid={item.sourceId}
                         onClick={setVersion}
+                        className={classes.version}
                       >
-                        {item.version.name}
+                        {item.version.code.toUpperCase()} : {item.version.name}
                       </ListItem>
                     ))}
                   </List>

@@ -74,7 +74,7 @@ const MenuBar = props => {
   const id = open ? "simple-popover" : undefined;
   return (
     <Grid container className={classes.read}>
-      <Grid item xs={6}>
+      <Grid item xs={9}>
         <Version
           versions={props.versions}
           version={props.version}
@@ -89,11 +89,12 @@ const MenuBar = props => {
           chapter={props.chapter}
           sourceId={props.sourceId}
           setValue={props.setValue}
+          transparent={true}
         />
       </Grid>
       <Grid
         item
-        xs={6}
+        xs={3}
         className={classes.items}
         container
         alignItems="flex-start"
