@@ -1,4 +1,5 @@
 import API from "../../store/api";
+//Function to get the bible versions
 export const getVersions = setValue => {
   API.get("bibles")
     .then(function(response) {
@@ -19,11 +20,13 @@ export const getVersions = setValue => {
       console.log(error);
     });
 };
+//Function to get reset the selected book and chapter
 const resetBookData = setValue => {
   setValue("bookList", []);
   setValue("book", "Loading...");
   setValue("bookCode", "");
 };
+//Function to get the bible books
 export const getBooks = (setValue, sourceId) => {
   resetBookData(setValue);
   API.get("bibles/" + sourceId + "/books")
@@ -41,6 +44,7 @@ export const getBooks = (setValue, sourceId) => {
       console.log(error);
     });
 };
+//Function to get the book chapters
 export const getChapters = (setValue, sourceId, bookCode, last) => {
   API.get("bibles/" + sourceId + "/books/" + bookCode + "/chapters")
     .then(function(response) {
@@ -56,7 +60,7 @@ export const getChapters = (setValue, sourceId, bookCode, last) => {
       console.log(error);
     });
 };
-
+//Function to get the next chapter
 export const nextChapter = (
   setValue,
   sourceId,
@@ -77,6 +81,7 @@ export const nextChapter = (
     }
   }
 };
+//Function to get the next book
 const getNextBook = (bookList, bookCode) => {
   for (let index in bookList) {
     if (bookCode === bookList[index].abbreviation) {
@@ -89,6 +94,7 @@ const getNextBook = (bookList, bookCode) => {
   }
   return null;
 };
+//Function to get the previous chapter
 export const previousChapter = (
   setValue,
   sourceId,
@@ -108,6 +114,7 @@ export const previousChapter = (
     }
   }
 };
+//Function to get the previous book
 const getPrevBook = (bookList, bookCode) => {
   for (let index in bookList) {
     if (bookCode === bookList[index].abbreviation) {

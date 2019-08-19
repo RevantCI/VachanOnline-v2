@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import { bookChapters } from "../../data/bibledata";
 import BookCombo from "../common/BookCombo";
 import Version from "../common/Version";
 const useStyles = makeStyles(theme => ({
@@ -40,12 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const BibleIndex = props => {
-  const chapters = props.book !== "" ? bookChapters[props.book] : 0;
   let label = "Read";
-  let chapterList = [...new Array(chapters)].map((x, i) => i + 1);
-  const books = Object.keys(bookChapters);
-  books.unshift("");
-  chapterList.unshift("");
   const classes = useStyles();
 
   return (

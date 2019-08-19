@@ -86,6 +86,7 @@ const Version = ({ versions, version, setValue }) => {
   function handleClose() {
     setAnchorEl(null);
   }
+  //function to set the bible version when clicked
   const setVersion = event => {
     handleClose();
     setValue("version", event.currentTarget.getAttribute("value"));

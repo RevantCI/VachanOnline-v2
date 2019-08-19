@@ -30,6 +30,7 @@ const Bible = props => {
   const [isLoading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
     if (props.sourceId && props.bookCode && props.chapter) {
+      //code to get chatper content if version, book or chapter changed
       setIsLoading(true);
       API.get(
         "bibles/" +
@@ -49,6 +50,7 @@ const Bible = props => {
     }
   }, [props.sourceId, props.bookCode, props.chapter]);
 
+  //Function to load previous chapter
   const prevClick = () => {
     if (!isLoading) {
       previousChapter(
@@ -61,6 +63,7 @@ const Bible = props => {
       );
     }
   };
+  //Function to load next chapter
   const nextClick = () => {
     if (!isLoading) {
       nextChapter(

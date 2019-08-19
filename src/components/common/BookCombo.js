@@ -81,6 +81,7 @@ export default function BookCombo({
     setBookOpen(bookList.length < 4 ? bookList.length : 4);
   }, [bookList]);
   const [bookOpened, setBookOpened] = React.useState("");
+  //function to set book once its clicked and open the chapter list for it
   function bookClicked(event) {
     if (bookOpen !== event.currentTarget.innerText) {
       let index = parseInt(event.currentTarget.getAttribute("data-count"));
