@@ -23,22 +23,17 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     width: "100%",
-    maxWidth: 940,
+    maxWidth: 770,
     backgroundColor: "#ffffff",
-    textTransform: "capitalize"
-  },
-  transparentRoot: {
-    backgroundColor: "#ffffff70"
+    textTransform: "capitalize",
+    maxHeight: "calc(100vh - 150px)"
   },
   paper: {
     position: "relative",
-    maxHeight: 580,
-    width: 940,
+    maxHeight: "calc(100vh - 150px)",
+    width: 770,
     backgroundColor: "#eeefff",
     color: "#2a2a2a"
-  },
-  transparentPaper: {
-    backgroundColor: "#eeefff90"
   },
   book: {
     marginRight: theme.spacing(1),
@@ -47,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: 1,
     display: "inline-block",
     width: 160,
-    transition: "width 600ms ease-out, height 600ms ease-out",
+    transition: "width 500ms ease-out, height 500ms ease-out",
     textAlign: "center",
     padding: "0px 0px"
   },
@@ -64,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(0),
     display: "inline-block",
     width: 50,
-    backgroundColor: "#ffffff90",
+    backgroundColor: "#ffffff",
     textAlign: "center",
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   }
@@ -76,21 +71,23 @@ export default function BookCombo({
   chapterList,
   chapter,
   sourceId,
-  setValue,
-  transparent = false
+  setValue
 }) {
   const classes = useStyles();
   const bookDropdown = React.useRef(null);
   // const books = Object.keys(bookChapters);
 
-  const [bookOpen, setBookOpen] = React.useState(book);
+  const [bookOpen, setBookOpen] = React.useState(-1);
+  React.useEffect(() => {
+    setBookOpen(bookList.length < 4 ? bookList.length : 4);
+  }, [bookList]);
   const [bookOpened, setBookOpened] = React.useState("");
   function bookClicked(event) {
     if (bookOpen !== event.currentTarget.innerText) {
       let index = parseInt(event.currentTarget.getAttribute("data-count"));
-      let row = parseInt((index + 4) / 5);
-      let lastRow = parseInt((bookList.length + 4) / 5);
-      setBookOpen(lastRow === row ? bookList.length : row * 5);
+      let row = parseInt((index + 3) / 4);
+      let lastRow = parseInt((bookList.length + 3) / 4);
+      setBookOpen(lastRow === row ? bookList.length : row * 4);
       setBookOpened(event.currentTarget.getAttribute("value"));
       setValue("chapterList", []);
       getChapters(
@@ -155,20 +152,12 @@ export default function BookCombo({
           keepMounted
           open={openCombo}
           onClose={closeMenu}
-          classes={{
-            paper: transparent
-              ? `${classes.paper} ${classes.transparentPaper}`
-              : classes.paper
-          }}
+          classes={{ paper: classes.paper }}
         >
           <List
             component="nav"
             aria-labelledby="nested-list-subheader"
-            className={
-              transparent
-                ? `${classes.root} ${classes.transparentRoot}`
-                : classes.root
-            }
+            className={classes.root}
           >
             {bookList.map((item, i) => {
               let open =

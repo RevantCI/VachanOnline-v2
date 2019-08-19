@@ -67,7 +67,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1.2rem"
   },
   version: {
-    fontSize: "1rem"
+    fontSize: "1rem",
+    cursor: "pointer"
   }
 }));
 const Version = ({ versions, version, setValue }) => {

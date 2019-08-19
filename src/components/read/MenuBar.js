@@ -89,7 +89,6 @@ const MenuBar = props => {
           chapter={props.chapter}
           sourceId={props.sourceId}
           setValue={props.setValue}
-          transparent={true}
         />
       </Grid>
       <Grid
