@@ -75,7 +75,6 @@ export default function BookCombo({
 }) {
   const classes = useStyles();
   const bookDropdown = React.useRef(null);
-  // const books = Object.keys(bookChapters);
 
   const [bookOpen, setBookOpen] = React.useState(-1);
   React.useEffect(() => {

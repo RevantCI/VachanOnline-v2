@@ -1,5 +1,4 @@
 import React from "react";
-// import LanguageBar from "./LanguageBar";
 import BibleIndex from "../landing/BibleIndex";
 import PageHeader from "./PageHeader";
 import Banner from "./Banner";
@@ -15,20 +14,6 @@ const Landing = props => {
     copyright: "copyright@2019 VachanOnline",
     subscribe: "Subscribe"
   };
-  // let languages = [
-  //   "অসমীয়া ",
-  //   "বাঙালি",
-  //   "ગુજરાતી",
-  //   "हिंदी",
-  //   "ಕನ್ನಡ",
-  //   "മലയാളം",
-  //   "मराठी",
-  //   "ଓଡିଆ",
-  //   "ਪੰਜਾਬੀ",
-  //   "தமிழ்",
-  //   "తెలుగు",s
-  //   "اردو"
-  // ];
 
   const [menu, setMenu] = React.useState(false);
   const toggleDrawer = open => event => {
