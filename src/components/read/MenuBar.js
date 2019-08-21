@@ -56,7 +56,8 @@ const MenuBar = props => {
   }
   const [anchorEl, setAnchorEl] = React.useState(null);
   function handleClick(event) {
-    setAnchorEl(event.currentTarget);
+    //uncomment below line to make the info buton work again
+    //setAnchorEl(event.currentTarget);
   }
   function handleClose() {
     setAnchorEl(null);

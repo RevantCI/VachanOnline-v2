@@ -32,7 +32,8 @@ const Landing = props => {
     subscribe: false
   });
   const toggleModal = (name, value) => () => {
-    setMenuModal({ ...modal, [name]: value });
+    //uncomment below lines to start using modals for about us etc
+    //setMenuModal({ ...modal, [name]: value });
   };
   let menus = ["About us", "Contact us", "Feedback", "Subscribe"];
   let aboutUs =
