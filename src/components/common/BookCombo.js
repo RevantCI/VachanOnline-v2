@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     maxHeight: "calc(100vh - 150px)",
     width: 770,
-    backgroundColor: "#eeefff",
+    backgroundColor: "#ffffff",
     color: "#2a2a2a"
   },
   book: {
@@ -74,12 +74,28 @@ export default function BookCombo({
   setValue
 }) {
   const classes = useStyles();
+  //book combo button ref
   const bookDropdown = React.useRef(null);
-
-  const [bookOpen, setBookOpen] = React.useState(-1);
+  //last book count in book drop down to show list of chapters in
+  const [bookOpen, setBookOpen] = React.useState(4);
+  const [selectedChapterList, setSelectedChapterList] = React.useState(
+    chapterList
+  );
+  const [selectedBookIndex, setSelectedBookIndex] = React.useState(4);
   React.useEffect(() => {
-    setBookOpen(bookList.length < 4 ? bookList.length : 4);
+    if (bookList !== undefined) {
+      setBookOpen(bookList.length < 4 ? bookList.length : 4);
+    }
   }, [bookList]);
+  React.useEffect(() => {
+    setSelectedChapterList(chapterList);
+  }, [chapterList]);
+  React.useEffect(() => {
+    if (book !== "Loading..." && book !== "" && bookList !== undefined) {
+      setBookOpen(bookList.findIndex(e => e.bibleBookFullName === book) + 1);
+    }
+  }, [bookList, book]);
+  //book to highlight on clicking
   const [bookOpened, setBookOpened] = React.useState("");
   //function to set book once its clicked and open the chapter list for it
   function bookClicked(event) {
@@ -93,7 +109,9 @@ export default function BookCombo({
       getChapters(
         setValue,
         sourceId,
-        event.currentTarget.getAttribute("data-bookcode")
+        event.currentTarget.getAttribute("data-bookcode"),
+        false,
+        setSelectedChapterList
       );
     } else {
       setBookOpen("");
@@ -102,12 +120,16 @@ export default function BookCombo({
   const [openCombo, setOpenCombo] = React.useState(false);
   function openMenu(event) {
     setOpenCombo(true);
+    getChapters(setValue, sourceId, bookCode);
   }
   function closeMenu() {
+    setBookOpened(book);
+    setSelectedChapterList(chapterList);
     setOpenCombo(false);
+    setBookOpen(selectedBookIndex);
   }
-
   const clickChapter = event => {
+    setSelectedBookIndex(bookOpen);
     closeMenu();
     let reference = event.currentTarget
       .getAttribute("data-reference")
@@ -133,7 +155,7 @@ export default function BookCombo({
         {book} {chapter}
         <i className={classesI}>keyboard_arrow_downn</i>
       </Button>
-      {!bookList && bookList.length === 0 ? (
+      {bookList === undefined || bookList.length === 0 ? (
         ""
       ) : (
         <Menu
@@ -177,14 +199,16 @@ export default function BookCombo({
                   >
                     <ListItemText primary={item.bibleBookFullName} />
                   </ListItem>
-                  {bookOpen === i + 1 ? (
+                  {bookOpen === i + 1 && selectedChapterList ? (
                     <Collapse
-                      in={chapterList && chapterList.length !== 0}
+                      in={
+                        selectedChapterList && selectedChapterList.length !== 0
+                      }
                       timeout="auto"
                       unmountOnExit
                     >
                       <List component="div" disablePadding>
-                        {chapterList.map((item, i) => {
+                        {selectedChapterList.map((item, i) => {
                           var chapterActive =
                             item.chapter.reference === book + " " + chapter
                               ? classes.active
@@ -196,7 +220,7 @@ export default function BookCombo({
                               data-reference={item.chapter.reference}
                               data-bookcode={item.bibleBookCode}
                               button
-                              className={`${chapterActive} ${classes.chapter}`}
+                              className={`${classes.chapter} ${chapterActive}`}
                               onClick={clickChapter}
                             >
                               {item.chapter.number}

@@ -9,9 +9,12 @@ import API from "../../store/api";
 import { nextChapter, previousChapter } from "../common/utillity";
 const useStyles = makeStyles(theme => ({
   biblePanel: {
-    padding: "25px 8%",
+    paddingLeft: 85,
     backgroundColor: "white",
     lineHeight: 2,
+    position: "absolute",
+    width: "100%",
+    height: "100%",
     "& p": {
       textAlign: "justify",
       color: "#616161",
@@ -21,6 +24,23 @@ const useStyles = makeStyles(theme => ({
       textAlign: "justify",
       color: "#616161"
     }
+  },
+  bibleReadingPane: {
+    position: "absolute",
+    right: 85,
+    left: 85,
+    height: "100%",
+    overflow: "auto"
+  },
+  prevChapter: {
+    position: "absolute",
+    top: "45%",
+    left: 20
+  },
+  nextChapter: {
+    position: "absolute",
+    top: "45%",
+    right: 20
   }
 }));
 const Bible = props => {
@@ -86,7 +106,7 @@ const Bible = props => {
       }}
     >
       {!isLoading ? (
-        <div>
+        <div className={classes.bibleReadingPane}>
           {verses.map(item => (
             <span key={item.number}>
               {item.metadata &&
@@ -112,7 +132,7 @@ const Bible = props => {
         size="small"
         color="default"
         aria-label="Add"
-        style={{ position: "fixed", top: "50vh", left: "2%" }}
+        className={classes.prevChapter}
         onClick={prevClick}
       >
         <KeyboardArrowLeft />
@@ -121,7 +141,7 @@ const Bible = props => {
         size="small"
         color="default"
         aria-label="Add"
-        style={{ position: "fixed", top: "50vh", right: "3%" }}
+        className={classes.nextChapter}
         onClick={nextClick}
       >
         <KeyboardArrowRight />

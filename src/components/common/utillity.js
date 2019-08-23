@@ -45,14 +45,24 @@ export const getBooks = (setValue, sourceId) => {
     });
 };
 //Function to get the book chapters
-export const getChapters = (setValue, sourceId, bookCode, last) => {
+export const getChapters = (
+  setValue,
+  sourceId,
+  bookCode,
+  setLastChapter,
+  setChapter
+) => {
   API.get("bibles/" + sourceId + "/books/" + bookCode + "/chapters")
     .then(function(response) {
       let chapters = response.data.sort(
         (a, b) => a.chapter.number - b.chapter.number
       );
-      setValue("chapterList", chapters);
-      if (last) {
+      if (setChapter) {
+        setChapter(chapters);
+      } else {
+        setValue("chapterList", chapters);
+      }
+      if (setLastChapter) {
         setValue("chapter", chapters.slice(-1)[0].chapter.number);
       }
     })

@@ -9,9 +9,12 @@ import BookCombo from "../common/BookCombo";
 import Version from "../common/Version";
 const useStyles = makeStyles(theme => ({
   read: {
-    padding: "0 8%",
+    padding: "0 15px 0 85px",
     width: "100%",
-    borderBottom: "1px solid #f1ecec"
+    borderBottom: "1px solid #f1ecec",
+    position: "absolute",
+    height: 61,
+    top: 74
   },
   select: {
     marginTop: "-8px",
@@ -80,7 +83,6 @@ const MenuBar = props => {
           versions={props.versions}
           version={props.version}
           setValue={props.setValue}
-          style={{ backgroundColor: "#000" }}
         />
         <BookCombo
           book={props.book}

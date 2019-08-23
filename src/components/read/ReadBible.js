@@ -1,41 +1,30 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Fullscreen from "react-full-screen";
 import TopBar from "./TopBar";
-import MenuBar from "./MenuBar";
-import Bible from "./Bible";
+import BiblePane from "./BiblePane";
 
 const useStyles = makeStyles(theme => ({
-  bible: {
-    display: "flex",
-    width: "100%",
-    padding: "0px 0px"
-  },
-  fullscreen: {
-    backgroundColor: "#fff"
+  biblePane2: {
+    position: "absolute",
+    width: "50%",
+    height: "100%",
+    overflow: "hidden",
+    "&:nth-child(3)": {
+      left: "50%"
+    }
   }
 }));
-
 const ReadBible = () => {
   const classes = useStyles();
-  const [fullscreen, setFullscreen] = React.useState(false);
-
   return (
     <>
       <TopBar />
-      <MenuBar setFullscreen={setFullscreen} />
-      <Grid container className={classes.bible}>
-        <Grid item xs={12}>
-          <Fullscreen
-            enabled={fullscreen}
-            onChange={fullscreen => setFullscreen(fullscreen)}
-            className={classes.fullscreen}
-          >
-            <Bible />
-          </Fullscreen>
-        </Grid>
-      </Grid>
+      <div className={classes.biblePane2}>
+        <BiblePane />
+      </div>
+      <div className={classes.biblePane2}>
+        <BiblePane />
+      </div>
     </>
   );
 };

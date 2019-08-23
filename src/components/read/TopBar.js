@@ -11,7 +11,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     top: 0,
     display: "flex",
-    width: "100%"
+    width: "100%",
+    position: "absolute",
+    height: 74
   },
   appBar: {
     background: "#3970a7",
