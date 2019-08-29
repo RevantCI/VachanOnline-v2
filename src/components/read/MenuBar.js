@@ -9,7 +9,7 @@ import BookCombo from "../common/BookCombo";
 import Version from "../common/Version";
 const useStyles = makeStyles(theme => ({
   read: {
-    padding: "0 15px 0 85px",
+    padding: "0 15px 0 44px",
     width: "100%",
     borderBottom: "1px solid #f1ecec",
     position: "absolute",

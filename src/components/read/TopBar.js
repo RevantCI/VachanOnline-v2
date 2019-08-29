@@ -6,7 +6,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 const useStyles = makeStyles(theme => ({
   root: {
     top: 0,
@@ -16,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     height: 74
   },
   appBar: {
-    background: "#3970a7",
+    background: "#3F0E40",
     padding: "0px 20px",
     marginBottom: "10px"
   },
@@ -74,10 +76,23 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     borderColor: "white",
     backgroundColor: "#007bff"
-  }
+  },
+
+  form: {
+    display: "inline-block",
+    marginTop: 7
+  },
 }));
 export default function TopBar() {
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    checkedA: true,
+    checkedB: true,
+  });
+
+  const handleChange = name => event => {
+    setState({ ...state, [name]: event.target.checked });
+  };
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="static">
@@ -93,7 +108,26 @@ export default function TopBar() {
           <Typography className={classes.title} variant="h5" noWrap>
             <Link to="/">Vachanonline</Link>
           </Typography>
+          <FormGroup className={classes.form}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={state.checkedB}
+                  onChange={handleChange('checkedB')}
+                  value="checkedB"
+                  color="primary"
+                />
+              }
+              label="Parallel Scroll"
+            />
+          </FormGroup>
         </Toolbar>
+
+
+
+
+
+
       </AppBar>
     </div>
   );

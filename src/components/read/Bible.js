@@ -9,8 +9,8 @@ import API from "../../store/api";
 import { nextChapter, previousChapter } from "../common/utillity";
 const useStyles = makeStyles(theme => ({
   biblePanel: {
-    paddingLeft: 85,
-    backgroundColor: "white",
+    // paddingLeft: 85,
+    // backgroundColor: "#ddd",
     lineHeight: 2,
     position: "absolute",
     width: "100%",
@@ -27,15 +27,17 @@ const useStyles = makeStyles(theme => ({
   },
   bibleReadingPane: {
     position: "absolute",
-    right: 85,
-    left: 85,
+    right: 0,
+    left: 44,
+    paddingTop: 20,
     height: "100%",
     overflow: "auto"
   },
+
   prevChapter: {
     position: "absolute",
     top: "45%",
-    left: 20
+    left: 35
   },
   nextChapter: {
     position: "absolute",
@@ -54,17 +56,17 @@ const Bible = props => {
       setIsLoading(true);
       API.get(
         "bibles/" +
-          props.sourceId +
-          "/books/" +
-          props.bookCode +
-          "/chapter/" +
-          props.chapter
+        props.sourceId +
+        "/books/" +
+        props.bookCode +
+        "/chapter/" +
+        props.chapter
       )
-        .then(function(response) {
+        .then(function (response) {
           setVerses(response.data.chapterContent.verses);
           setIsLoading(false);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     }
@@ -110,24 +112,24 @@ const Bible = props => {
           {verses.map(item => (
             <span key={item.number}>
               {item.metadata &&
-              item.metadata[0] &&
-              item.metadata[0]["styling"] &&
-              (item.metadata[0]["styling"][0] === "p" ||
-                item.metadata[0]["styling"][0].startsWith("q")) ? (
-                <p>
-                  {item.number}. {item.text}
-                </p>
-              ) : (
-                <span>
-                  {item.number}. {item.text}
-                </span>
-              )}
+                item.metadata[0] &&
+                item.metadata[0]["styling"] &&
+                (item.metadata[0]["styling"][0] === "p" ||
+                  item.metadata[0]["styling"][0].startsWith("q")) ? (
+                  <p>
+                    {item.number}. {item.text}
+                  </p>
+                ) : (
+                  <span>
+                    {item.number}. {item.text}
+                  </span>
+                )}
             </span>
           ))}
         </div>
       ) : (
-        <h3>Loading</h3>
-      )}
+          <h3>Loading</h3>
+        )}
       <Fab
         size="small"
         color="default"
