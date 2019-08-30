@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import Button from "@material-ui/core/Button";
+// import Fab from "@material-ui/core/Fab";
+// import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+// import Button from "@material-ui/core/Button";
 import * as actions from "../../store/actions";
 import API from "../../store/api";
 import { nextChapter, previousChapter } from "../common/utillity";
@@ -17,12 +17,12 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     "& p": {
       textAlign: "justify",
-      color: "#616161",
+      color: "#464545",
       marginBottom: 5
     },
     "& span": {
       textAlign: "justify",
-      color: "#616161"
+      color: "#464545"
     }
   },
   bibleReadingPane: {
