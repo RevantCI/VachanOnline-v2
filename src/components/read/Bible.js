@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import Button from "@material-ui/core/Button";
 import * as actions from "../../store/actions";
 import API from "../../store/api";
 import { nextChapter, previousChapter } from "../common/utillity";
@@ -29,6 +29,8 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     right: 0,
     left: 44,
+    paddingRight: "35px",
+    textAlign: "justify",
     paddingTop: 20,
     height: "100%",
     overflow: "auto"
@@ -37,13 +39,16 @@ const useStyles = makeStyles(theme => ({
   prevChapter: {
     position: "absolute",
     top: "45%",
-    left: 35
+    left: 10,
+    cursor: "pointer",
   },
   nextChapter: {
     position: "absolute",
     top: "45%",
-    right: 20
+    right: 20,
+    cursor: "pointer"
   }
+
 }));
 const Bible = props => {
   const fontFamily =
@@ -98,6 +103,7 @@ const Bible = props => {
       );
     }
   };
+
   const classes = useStyles();
   return (
     <div
@@ -107,6 +113,9 @@ const Bible = props => {
         fontSize: props.fontSize
       }}
     >
+
+
+
       {!isLoading ? (
         <div className={classes.bibleReadingPane}>
           {verses.map(item => (
@@ -130,24 +139,24 @@ const Bible = props => {
       ) : (
           <h3>Loading</h3>
         )}
-      <Fab
-        size="small"
+      <div
+
         color="default"
         aria-label="Add"
         className={classes.prevChapter}
         onClick={prevClick}
       >
-        <KeyboardArrowLeft />
-      </Fab>
-      <Fab
-        size="small"
+        <i class="material-icons material" style={{ fontSize: "38px", color: "#ccc" }}>navigate_before</i>
+      </div>
+      <div
+
         color="default"
         aria-label="Add"
         className={classes.nextChapter}
         onClick={nextClick}
       >
-        <KeyboardArrowRight />
-      </Fab>
+        <i class="material-icons material" style={{ fontSize: "38px", color: "#ccc" }}>keyboard_arrow_right</i>
+      </div>
     </div>
   );
 };

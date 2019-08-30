@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     height: 74
   },
   appBar: {
-    background: "#3F0E40",
+    background: "#089de3",
     padding: "0px 20px",
     marginBottom: "10px"
   },
@@ -108,6 +108,7 @@ export default function TopBar() {
           <Typography className={classes.title} variant="h5" noWrap>
             <Link to="/">Vachanonline</Link>
           </Typography>
+
           <FormGroup className={classes.form}>
             <FormControlLabel
               control={

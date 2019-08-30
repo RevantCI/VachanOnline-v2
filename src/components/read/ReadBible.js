@@ -6,25 +6,27 @@ import BibleMenu from './BibleMenu';
 const useStyles = makeStyles(theme => ({
   biblePane2: {
     position: "absolute",
-    width: "47%",
-    // paddingLeft: "22px",
-    // backgroundColor: "#ddd",
+    width: "47.5%",
     height: "100%",
+    backgroundColor: "#fff",
     borderRight: "1px solid #f7f7f7",
     overflow: "hidden",
     "&:nth-child(3)": {
-      left: "47%"
+      left: "47.5%",
+      backgroundColor: "#fff",
     }
   },
   biblePane3: {
-    width: "6%",
-    backgroundColor: "#3F0E40",
+    width: "5%",
+    backgroundColor: "#2e639a",
     position: "absolute",
     height: "100vh",
     paddingTop: "60px",
     maxHeight: "100%",
     right: 0,
     bottom: 0,
+    overflow: "hidden",
+    textAlign: "center"
   },
 }));
 const ReadBible = () => {

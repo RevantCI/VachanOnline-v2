@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   info: {
     padding: 0,
-    width: "40px",
+    width: "30px",
     marginTop: 20,
     marginRight: "8px",
     color: "#1976D2",
@@ -30,10 +30,10 @@ const useStyles = makeStyles(theme => ({
   },
   settings: {
     padding: 0,
-    width: "40px",
+    width: "30px",
     marginTop: 20,
     marginLeft: "-10px",
-    marginRight: "-21px",
+    marginRight: "-5px",
     color: "#1976D2",
     cursor: "pointer"
   },
@@ -78,7 +78,7 @@ const MenuBar = props => {
   const id = open ? "simple-popover" : undefined;
   return (
     <Grid container className={classes.read}>
-      <Grid item xs={9}>
+      <Grid item xs={7}>
         <Version
           versions={props.versions}
           version={props.version}
@@ -96,7 +96,7 @@ const MenuBar = props => {
       </Grid>
       <Grid
         item
-        xs={3}
+        xs={5}
         className={classes.items}
         container
         alignItems="flex-start"
@@ -108,7 +108,7 @@ const MenuBar = props => {
           onClick={handleClick}
           className={classes.info}
         >
-          <i className="material-icons md-26">info_outline</i>
+          <i className="material-icons md-23">info_outline</i>
         </div>
         <Popover
           id={id}
@@ -142,7 +142,7 @@ const MenuBar = props => {
           </div>
         </Popover>
         <div className={classes.info} onClick={goFull}>
-          <i className="material-icons md-26">zoom_out_map</i>
+          <i className="material-icons md-23">zoom_out_map</i>
         </div>
         <div
           className={classes.settings}
@@ -151,7 +151,7 @@ const MenuBar = props => {
           aria-haspopup="true"
           onClick={openSettings}
         >
-          <i className="material-icons md-26">more_vert</i>
+          <i className="material-icons md-23">more_vert</i>
         </div>
         <Setting
           fontSize={props.fontSize}
@@ -160,8 +160,11 @@ const MenuBar = props => {
           settingsAnchor={settingsAnchor}
           handleClose={closeSettings}
         />
+        <div className={classes.info}>
+          <i class="material-icons" style={{ fontSize: "24px", marginTop: "-2px" }}>close</i>
+        </div>
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 const mapStateToProps = state => {
