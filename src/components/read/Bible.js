@@ -39,13 +39,13 @@ const useStyles = makeStyles(theme => ({
   prevChapter: {
     position: "absolute",
     top: "45%",
-    left: 10,
+    left: 0,
     cursor: "pointer",
   },
   nextChapter: {
     position: "absolute",
     top: "45%",
-    right: 20,
+    right: 14,
     cursor: "pointer"
   }
 
@@ -146,7 +146,7 @@ const Bible = props => {
         className={classes.prevChapter}
         onClick={prevClick}
       >
-        <i class="material-icons material" style={{ fontSize: "38px", color: "#ccc" }}>navigate_before</i>
+        <i class="material-icons material" style={{ fontSize: "38px", color: "#777777" }}>navigate_before</i>
       </div>
       <div
 
@@ -155,7 +155,7 @@ const Bible = props => {
         className={classes.nextChapter}
         onClick={nextClick}
       >
-        <i class="material-icons material" style={{ fontSize: "38px", color: "#ccc" }}>keyboard_arrow_right</i>
+        <i class="material-icons material" style={{ fontSize: "38px", color: "#777777" }}>keyboard_arrow_right</i>
       </div>
     </div>
   );

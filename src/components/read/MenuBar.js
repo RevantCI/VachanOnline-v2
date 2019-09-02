@@ -78,7 +78,7 @@ const MenuBar = props => {
   const id = open ? "simple-popover" : undefined;
   return (
     <Grid container className={classes.read}>
-      <Grid item xs={7}>
+      <Grid item xs={9}>
         <Version
           versions={props.versions}
           version={props.version}
@@ -96,7 +96,7 @@ const MenuBar = props => {
       </Grid>
       <Grid
         item
-        xs={5}
+        xs={3}
         className={classes.items}
         container
         alignItems="flex-start"
@@ -161,7 +161,7 @@ const MenuBar = props => {
           handleClose={closeSettings}
         />
         <div className={classes.info}>
-          <i class="material-icons" style={{ fontSize: "24px", marginTop: "-2px" }}>close</i>
+          <i className="material-icons" style={{ fontSize: "24px", marginTop: "-2px" }}>close</i>
         </div>
       </Grid>
     </Grid >
