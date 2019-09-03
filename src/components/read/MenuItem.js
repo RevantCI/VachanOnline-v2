@@ -45,30 +45,30 @@ export default function MenuItem(props) {
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
             >
-                <i class="material-icons" style={{ fontSize: "38px", color: "#fff" }}>
+                <div><i class="material-icons" style={{ fontSize: "38px", color: "#fff" }}>
                     {props.icon}</i>
-                <Popover
-                    id="mouse-over-popover"
-                    className={classes.popover}
-                    classes={{
-                        paper: classes.paper,
-                    }}
-                    open={open}
-                    anchorEl={popover}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    onClose={handlePopoverClose}
-                    disableRestoreFocus
-                >
-                    <Typography className={classes.menu}>{props.title}</Typography>
-                </Popover>
-
+                    <Popover
+                        id="mouse-over-popover"
+                        className={classes.popover}
+                        classes={{
+                            paper: classes.paper,
+                        }}
+                        open={open}
+                        anchorEl={popover}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        onClose={handlePopoverClose}
+                        disableRestoreFocus
+                    >
+                        <Typography className={classes.menu}>{props.title}</Typography>
+                    </Popover>
+                </div>
             </ListItemIcon>
         </ListItem >
 

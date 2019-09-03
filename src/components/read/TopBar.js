@@ -9,6 +9,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import SerachBox from "../common/SearchBox"
 const useStyles = makeStyles(theme => ({
   root: {
     top: 0,
@@ -80,8 +81,9 @@ const useStyles = makeStyles(theme => ({
 
   form: {
     display: "inline-block",
-    marginTop: 7
+    marginTop: 7,
   },
+
 }));
 export default function TopBar() {
   const classes = useStyles();
@@ -122,12 +124,8 @@ export default function TopBar() {
               label="Parallel Scroll"
             />
           </FormGroup>
+          <SerachBox />
         </Toolbar>
-
-
-
-
-
 
       </AppBar>
     </div>

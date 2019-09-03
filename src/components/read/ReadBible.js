@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TopBar from "./TopBar";
 import BiblePane from "./BiblePane";
 import BibleMenu from './BibleMenu';
+import Search from './Search'
 const useStyles = makeStyles(theme => ({
   biblePane2: {
     position: "absolute",
@@ -38,7 +39,7 @@ const ReadBible = () => {
         <BiblePane />
       </div>
       <div className={classes.biblePane2}>
-        <BiblePane />
+        <Search />
       </div>
       <div className={classes.biblePane3}>
         <BibleMenu />

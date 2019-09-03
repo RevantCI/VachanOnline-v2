@@ -3,7 +3,7 @@
 }
 
 .searchBox input {
-  width: 300px;
+  width: 280px;
   border: none;
   padding-top: 9px;
   padding-left: 12px;
@@ -11,7 +11,7 @@
 }
 .searchBox {
   float: right;
-  width: 340px;
+  width: 300px;
   background-color: #fff;
   margin-top: 5px;
 }
