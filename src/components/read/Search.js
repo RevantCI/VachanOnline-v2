@@ -9,6 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Chip from '@material-ui/core/Chip';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+
 
 const useStyles = makeStyles(theme => ({
     bible: {
@@ -51,6 +54,7 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         pointerEvents: 'none',
         display: 'flex',
+        right: 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -58,11 +62,11 @@ const useStyles = makeStyles(theme => ({
         color: 'inherit',
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 7),
+        padding: theme.spacing(1, 1, 1, 2),
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: 400,
+            width: 320,
         },
     },
     sectionDesktop: {
@@ -80,8 +84,14 @@ const useStyles = makeStyles(theme => ({
     formControl: {
         marginLeft: 32,
         marginTop: 12,
-        minWidth: 460,
-        maxWidth: 460,
+        minWidth: 350,
+        maxWidth: 350,
+    },
+    formControl1: {
+        marginLeft: 32,
+        marginTop: 35,
+        minWidth: 350,
+        maxWidth: 350,
     },
     chips: {
         display: 'flex',
@@ -99,6 +109,11 @@ const useStyles = makeStyles(theme => ({
         "& p": {
             marginLeft: 32
         },
+    },
+    icon: {
+        display: "inline-block",
+        right: 0
+
     }
 }));
 
@@ -114,16 +129,12 @@ const MenuProps = {
 };
 
 const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
+    'Bible',
+    'Commentary',
+    'Interlinear',
+    'Articles',
+    'Dictionary',
+
 ];
 
 function getStyles(name, personName, theme) {
@@ -141,6 +152,36 @@ export default function Search() {
     function handleChange(event) {
         setPersonName(event.target.value);
     }
+    const [values, setValues] = React.useState({
+        predefinedvalues: '',
+
+    });
+
+    const inputLabel = React.useRef(null);
+    const [labelWidth, setLabelWidth] = React.useState(0);
+    React.useEffect(() => {
+        setLabelWidth(inputLabel.current.offsetWidth);
+    }, []);
+
+    function handleChange1(event) {
+        setValues(oldValues => ({
+            ...oldValues,
+            [event.target.name]: event.target.value,
+        }));
+    }
+    const [state, setState] = React.useState({
+        open: false,
+        age: '',
+    });
+    const handleChange2 = name => event => {
+        setState({ ...state, [name]: Number(event.target.value) });
+    };
+    const handleChange3 = name => event => {
+        setState({ ...state, [name]: Number(event.target.value) });
+    };
+
+
+
     return (
         <div className={classes.bible}>
 
@@ -170,7 +211,7 @@ export default function Search() {
             {/* ...............Search 2................ */}
 
             <FormControl className={classes.formControl}>
-                <p>Search In</p>
+                <p>Search In- Select Multiple</p>
 
                 <Select
                     multiple
@@ -191,13 +232,70 @@ export default function Search() {
                             {name}
                         </MenuItem>
                     ))}
+
+                </Select>
+
+            </FormControl>
+            {/* <div className={classes.icon}><i className="material-icons"> arrow_forward_ios</i></div> */}
+
+
+            {/* ...............close Search 2................ */}
+            {/* ...............Search 3................ */}
+            <FormControl variant="outlined" className={classes.formControl1} autoComplete="off">
+                <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+                    Search Predefined List
+                       </InputLabel>
+                <Select
+                    value={values.age}
+                    onChange={handleChange1}
+                    input={<OutlinedInput labelWidth={labelWidth} name="age" id="outlined-age-simple" />}
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Whole Bible</MenuItem>
+                    <MenuItem value={20}>New Testement</MenuItem>
+                    <MenuItem value={30}>Old Testement</MenuItem>
+                </Select>
+
+            </FormControl>
+
+            {/* ...............close Search 3................ */}
+
+            {/* ...............close Search 4................ */}
+            <FormControl className={classes.formControl} autoComplete="off">
+                <div>Select a range of biblical books</div>
+                <InputLabel htmlFor="from">From</InputLabel>
+                <Select
+                    native
+                    value={state.age}
+                    onChange={handleChange2('age')}
+                    input={<Input id="from" />}
+                >
+                    <option value="" />
+                    <option value={10}>Mathew</option>
+                    <option value={20}>Mark</option>
+                    <option value={30}>Luke</option>
+                </Select>
+            </FormControl>
+            <FormControl className={classes.formControl} autoComplete="off">
+
+                <InputLabel htmlFor="to">To</InputLabel>
+                <Select
+                    native
+                    value={state.age}
+                    onChange={handleChange3('age')}
+                    input={<Input id="to" />}
+                >
+                    <option value="" />
+                    <option value={10}>Mathew</option>
+                    <option value={20}>Mark</option>
+                    <option value={30}>Luke</option>
                 </Select>
             </FormControl>
 
 
-
-
-            {/* ...............Search 2................ */}
+            {/* ...............close Search 4................ */}
 
 
         </div>

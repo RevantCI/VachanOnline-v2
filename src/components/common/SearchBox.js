@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         pointerEvents: 'none',
         display: 'flex',
+        right: 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
         color: 'inherit',
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 7),
+        padding: theme.spacing(1, 1, 1, 2),
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
