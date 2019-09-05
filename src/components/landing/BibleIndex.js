@@ -48,16 +48,8 @@ const BibleIndex = props => {
         <Typography variant="h5" gutterBottom className={classes.heading}>
           Read Bible
         </Typography>
-        <Version setValue={props.setValue1} version={props.version} />
-        <BookCombo
-          book={props.book}
-          bookList={props.bookList}
-          bookCode={props.bookCode}
-          chapterList={props.chapterList}
-          chapter={props.chapter}
-          sourceId={props.sourceId}
-          setValue={props.setValue1}
-        />
+        <Version setValue={props.setValue} version={props.panel1.version} />
+        <BookCombo {...props.panel1} setValue={props.setValue} />
         <Link
           to={{
             pathname: "/read",
@@ -75,13 +67,19 @@ const BibleIndex = props => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    panel1: state.panel1
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
-    setValue1: (name, value) =>
+    setValue: (name, value) =>
       dispatch({ type: actions.SETVALUE1, name: name, value: value })
   };
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(BibleIndex);
