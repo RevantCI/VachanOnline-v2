@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 import SerachBox from "../common/SearchBox";
-import logo from '../common/images/logo.png'
+import logo from "../common/images/logo.png";
 const useStyles = makeStyles(theme => ({
   root: {
     top: 0,
@@ -86,15 +83,14 @@ const useStyles = makeStyles(theme => ({
 
   form: {
     display: "inline-block",
-    marginTop: 7,
-  },
-
+    marginTop: 7
+  }
 }));
 export default function TopBar() {
   const classes = useStyles();
   const [state, setState] = React.useState({
     checkedA: true,
-    checkedB: true,
+    checkedB: true
   });
 
   const handleChange = name => event => {
@@ -112,8 +108,11 @@ export default function TopBar() {
           >
             <MenuIcon />
           </IconButton> */}
-          <div className={classes.title} >
-            <Link to="/">   <img src={logo} alt={"logo"} /> </Link>
+          <div className={classes.title}>
+            <Link to="/">
+              {" "}
+              <img src={logo} alt={"logo"} />{" "}
+            </Link>
           </div>
 
           <FormGroup className={classes.form}>
@@ -121,7 +120,7 @@ export default function TopBar() {
               control={
                 <Switch
                   checked={state.checkedB}
-                  onChange={handleChange('checkedB')}
+                  onChange={handleChange("checkedB")}
                   value="checkedB"
                   color="primary"
                 />
@@ -131,7 +130,6 @@ export default function TopBar() {
           </FormGroup>
           <SerachBox />
         </Toolbar>
-
       </AppBar>
     </div>
   );

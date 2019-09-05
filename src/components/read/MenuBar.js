@@ -1,7 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
-import * as actions from "../../store/actions";
 import Grid from "@material-ui/core/Grid";
 import Popover from "@material-ui/core/Popover";
 import Setting from "../read/Setting";
@@ -79,11 +77,7 @@ const MenuBar = props => {
   return (
     <Grid container className={classes.read}>
       <Grid item xs={9}>
-        <Version
-          versions={props.versions}
-          version={props.version}
-          setValue={props.setValue}
-        />
+        <Version setValue={props.setValue} version={props.version} />
         <BookCombo
           book={props.book}
           bookList={props.bookList}
@@ -161,33 +155,15 @@ const MenuBar = props => {
           handleClose={closeSettings}
         />
         <div className={classes.info}>
-          <i className="material-icons" style={{ fontSize: "24px", marginTop: "-2px" }}>close</i>
+          <i
+            className="material-icons"
+            style={{ fontSize: "24px", marginTop: "-2px" }}
+          >
+            close
+          </i>
         </div>
       </Grid>
-    </Grid >
+    </Grid>
   );
 };
-const mapStateToProps = state => {
-  return {
-    version: state.version,
-    sourceId: state.sourceId,
-    book: state.book,
-    bookList: state.bookList,
-    bookCode: state.bookCode,
-    chapterList: state.chapterList,
-    chapter: state.chapter,
-    fontSize: state.fontSize,
-    fontFamily: state.fontFamily,
-    versions: state.versions
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    setValue: (name, value) =>
-      dispatch({ type: actions.SETVALUE, name: name, value: value })
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuBar);
+export default MenuBar;

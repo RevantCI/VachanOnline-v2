@@ -1,19 +1,19 @@
 import API from "../../store/api";
 //Function to get the bible versions
-export const getVersions = setValue => {
+export const getVersions = (setVersions, setValue) => {
   API.get("bibles")
     .then(function(response) {
       const versions = response.data;
-      setValue("versions", versions);
+      setVersions(versions);
       if (versions.length > 0) {
         setValue(
           "version",
-          versions[0].languageVersions[1].language.name +
+          versions[0].languageVersions[0].language.name +
             "-" +
-            versions[0].languageVersions[1].version.code.toUpperCase()
+            versions[0].languageVersions[0].version.code.toUpperCase()
         );
-        setValue("sourceId", versions[0].languageVersions[1].sourceId);
-        getBooks(setValue, versions[0].languageVersions[1].sourceId);
+        setValue("sourceId", versions[0].languageVersions[0].sourceId);
+        getBooks(setValue, versions[0].languageVersions[0].sourceId);
       }
     })
     .catch(function(error) {

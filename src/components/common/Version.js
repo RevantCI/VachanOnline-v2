@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -61,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     width: 300,
     border: "1px solid #d3d4d5",
     backgroundColor: "#3970a7",
-    color: "#fff",
+    color: "#fff"
   },
   language: {
     fontSize: "1rem"
@@ -71,17 +73,17 @@ const useStyles = makeStyles(theme => ({
     cursor: "pointer"
   }
 }));
-const Version = ({ versions, version, setValue }) => {
+const Version = props => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
   }
   React.useEffect(() => {
-    if (versions.length === 0) {
-      getVersions(setValue);
+    if (props.versions.length === 0) {
+      getVersions(props.setVersions, props.setValue);
     }
-  }, [setValue, versions]);
+  }, [props.setVersions, props.versions, props.setValue]);
 
   function handleClose() {
     setAnchorEl(null);
@@ -89,9 +91,10 @@ const Version = ({ versions, version, setValue }) => {
   //function to set the bible version when clicked
   const setVersion = event => {
     handleClose();
-    setValue("version", event.currentTarget.getAttribute("value"));
-    setValue("sourceId", event.currentTarget.getAttribute("data-sourceid"));
-    getBooks(setValue, event.currentTarget.getAttribute("data-sourceid"));
+    let selectedVersion = event.currentTarget;
+    props.setValue("version", selectedVersion.getAttribute("value"));
+    props.setValue("sourceId", selectedVersion.getAttribute("data-sourceid"));
+    getBooks(props.setValue, selectedVersion.getAttribute("data-sourceid"));
   };
   const classesI = `material-icons ${classes.icon}`;
   return (
@@ -103,80 +106,94 @@ const Version = ({ versions, version, setValue }) => {
         variant="contained"
         classes={{ root: classes.button }}
       >
-        {version}
+        {props.version}
         <i className={classesI}>keyboard_arrow_downn</i>
       </Button>
-      {versions.length === 0 ? (
+      {props.versions.length === 0 ? (
         ""
       ) : (
-          <>
-            <Menu
-              elevation={0}
-              getContentAnchorEl={null}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              classes={{
-                list: classes.list,
-                paper: classes.paper
-              }}
-            >
-              {versions.map((version, i) => (
-                <ExpansionPanel
-                  defaultExpanded={true}
+        <>
+          <Menu
+            elevation={0}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center"
+            }}
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            classes={{
+              list: classes.list,
+              paper: classes.paper
+            }}
+          >
+            {props.versions.map((version, i) => (
+              <ExpansionPanel
+                defaultExpanded={true}
+                classes={{
+                  root: classes.menuRoot,
+                  expanded: classes.expanded
+                }}
+                key={i}
+              >
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
                   classes={{
-                    root: classes.menuRoot,
-                    expanded: classes.expanded
+                    root: classes.summaryPanel,
+                    expanded: classes.expanded,
+                    content: classes.content
                   }}
-                  key={i}
                 >
-                  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    classes={{
-                      root: classes.summaryPanel,
-                      expanded: classes.expanded,
-                      content: classes.content
-                    }}
-                  >
-                    <Typography className={classes.language}>
-                      {version.language}
-                    </Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails style={{ padding: 0 }}>
-                    <List className={classes.expansionDetails}>
-                      {version.languageVersions.map((item, i) => (
-                        <ListItem
-                          key={i}
-                          value={
-                            item.language.name +
-                            "-" +
-                            item.version.code.toUpperCase()
-                          }
-                          data-sourceid={item.sourceId}
-                          onClick={setVersion}
-                          className={classes.version}
-                        >
-                          {item.version.code.toUpperCase()} : {item.version.name}
-                        </ListItem>
-                      ))}
-                    </List>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              ))}
-            </Menu>
-          </>
-        )}
+                  <Typography className={classes.language}>
+                    {version.language}
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails style={{ padding: 0 }}>
+                  <List className={classes.expansionDetails}>
+                    {version.languageVersions.map((item, i) => (
+                      <ListItem
+                        key={i}
+                        value={
+                          item.language.name +
+                          "-" +
+                          item.version.code.toUpperCase()
+                        }
+                        data-sourceid={item.sourceId}
+                        onClick={setVersion}
+                        className={classes.version}
+                      >
+                        {item.version.code.toUpperCase()} : {item.version.name}
+                      </ListItem>
+                    ))}
+                  </List>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            ))}
+          </Menu>
+        </>
+      )}
     </>
   );
 };
-export default Version;
+
+const mapStateToProps = state => {
+  return {
+    versions: state.versions
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setVersions: value => dispatch({ type: actions.SETVERSIONS, value: value })
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Version);

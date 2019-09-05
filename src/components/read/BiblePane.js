@@ -20,13 +20,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BiblePane = bibleNo => {
+const BiblePane = ({ setValue, paneData }) => {
   const classes = useStyles();
   const [fullscreen, setFullscreen] = React.useState(false);
 
   return (
     <>
-      <MenuBar setFullscreen={setFullscreen} bibleNo={bibleNo} />
+      <MenuBar
+        {...paneData}
+        setFullscreen={setFullscreen}
+        setValue={setValue}
+      />
       <Grid container className={classes.bible}>
         <Grid item xs={12}>
           <Fullscreen
@@ -34,7 +38,7 @@ const BiblePane = bibleNo => {
             onChange={fullscreen => setFullscreen(fullscreen)}
             className={classes.fullscreen}
           >
-            <Bible bibleNo={bibleNo} />
+            <Bible {...paneData} setValue={setValue} />
           </Fullscreen>
         </Grid>
       </Grid>

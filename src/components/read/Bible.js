@@ -1,18 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-// import Fab from "@material-ui/core/Fab";
-// import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-// import Button from "@material-ui/core/Button";
-import * as actions from "../../store/actions";
 import API from "../../store/api";
 import { nextChapter, previousChapter } from "../common/utillity";
 const useStyles = makeStyles(theme => ({
   biblePanel: {
-    // paddingLeft: 85,
-    // backgroundColor: "#ddd",
     lineHeight: 2,
     position: "absolute",
+    backgroundColor: "#fff",
     width: "100%",
     height: "100%",
     "& p": {
@@ -39,8 +33,8 @@ const useStyles = makeStyles(theme => ({
   prevChapter: {
     position: "absolute",
     top: "45%",
-    left: 0,
-    cursor: "pointer",
+    left: 3,
+    cursor: "pointer"
   },
   nextChapter: {
     position: "absolute",
@@ -48,7 +42,6 @@ const useStyles = makeStyles(theme => ({
     right: 14,
     cursor: "pointer"
   }
-
 }));
 const Bible = props => {
   const fontFamily =
@@ -61,17 +54,17 @@ const Bible = props => {
       setIsLoading(true);
       API.get(
         "bibles/" +
-        props.sourceId +
-        "/books/" +
-        props.bookCode +
-        "/chapter/" +
-        props.chapter
+          props.sourceId +
+          "/books/" +
+          props.bookCode +
+          "/chapter/" +
+          props.chapter
       )
-        .then(function (response) {
+        .then(function(response) {
           setVerses(response.data.chapterContent.verses);
           setIsLoading(false);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     }
@@ -113,71 +106,56 @@ const Bible = props => {
         fontSize: props.fontSize
       }}
     >
-
-
-
       {!isLoading ? (
         <div className={classes.bibleReadingPane}>
           {verses.map(item => (
             <span key={item.number}>
               {item.metadata &&
-                item.metadata[0] &&
-                item.metadata[0]["styling"] &&
-                (item.metadata[0]["styling"][0] === "p" ||
-                  item.metadata[0]["styling"][0].startsWith("q")) ? (
-                  <p>
-                    {item.number}. {item.text}
-                  </p>
-                ) : (
-                  <span>
-                    {item.number}. {item.text}
-                  </span>
-                )}
+              item.metadata[0] &&
+              item.metadata[0]["styling"] &&
+              (item.metadata[0]["styling"][0] === "p" ||
+                item.metadata[0]["styling"][0].startsWith("q")) ? (
+                <p>
+                  {item.number}. {item.text}
+                </p>
+              ) : (
+                <span>
+                  {item.number}. {item.text}
+                </span>
+              )}
             </span>
           ))}
         </div>
       ) : (
-          <h3>Loading</h3>
-        )}
+        <h3>Loading</h3>
+      )}
       <div
-
         color="default"
         aria-label="Add"
         className={classes.prevChapter}
         onClick={prevClick}
       >
-        <i class="material-icons material" style={{ fontSize: "38px", color: "#777777" }}>navigate_before</i>
+        <i
+          className="material-icons material"
+          style={{ fontSize: "38px", color: "#777777" }}
+        >
+          navigate_before
+        </i>
       </div>
       <div
-
         color="default"
         aria-label="Add"
         className={classes.nextChapter}
         onClick={nextClick}
       >
-        <i class="material-icons material" style={{ fontSize: "38px", color: "#777777" }}>keyboard_arrow_right</i>
+        <i
+          className="material-icons material"
+          style={{ fontSize: "38px", color: "#777777" }}
+        >
+          keyboard_arrow_right
+        </i>
       </div>
     </div>
   );
 };
-const mapStateToProps = state => {
-  return {
-    fontSize: state.fontSize,
-    fontFamily: state.fontFamily,
-    sourceId: state.sourceId,
-    bookCode: state.bookCode,
-    chapter: state.chapter,
-    chapterList: state.chapterList,
-    bookList: state.bookList
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    setValue: (name, value) =>
-      dispatch({ type: actions.SETVALUE, name: name, value: value })
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Bible);
+export default Bible;
