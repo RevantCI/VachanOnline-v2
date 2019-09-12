@@ -1,6 +1,7 @@
 import * as actions from "./actions";
 const defaultState = {
   versions: [],
+  parallelScroll: true,
   panel1: {
     version: "Loading...",
     sourceId: "",
@@ -40,6 +41,11 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         panel2: { ...state.panel2, [action.name]: action.value }
+      };
+    case actions.SETVALUE:
+      return {
+        ...state,
+        [action.name]: action.value
       };
     default:
       return state;

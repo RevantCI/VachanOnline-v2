@@ -86,15 +86,11 @@ const useStyles = makeStyles(theme => ({
     marginTop: 7
   }
 }));
-export default function TopBar() {
+export default function TopBar({ pScroll, setValue }) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true
-  });
 
-  const handleChange = name => event => {
-    setState({ ...state, [name]: event.target.checked });
+  const handleChange = () => event => {
+    setValue("parallelScroll", event.target.checked);
   };
   return (
     <div className={classes.root}>
@@ -119,9 +115,9 @@ export default function TopBar() {
             <FormControlLabel
               control={
                 <Switch
-                  checked={state.checkedB}
-                  onChange={handleChange("checkedB")}
-                  value="checkedB"
+                  checked={pScroll}
+                  onChange={handleChange()}
+                  value="checked"
                   color="primary"
                 />
               }

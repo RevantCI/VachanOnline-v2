@@ -96,7 +96,11 @@ const Bible = props => {
       );
     }
   };
-
+  const scrollText = () => {
+    if (props.scroll) {
+      props.scroll(props.paneNo);
+    }
+  };
   const classes = useStyles();
   return (
     <div
@@ -107,7 +111,13 @@ const Bible = props => {
       }}
     >
       {!isLoading ? (
-        <div className={classes.bibleReadingPane}>
+        <div
+          onScroll={() => {
+            scrollText();
+          }}
+          ref={props.ref1}
+          className={classes.bibleReadingPane}
+        >
           {verses.map(item => (
             <span key={item.number}>
               {item.metadata &&
