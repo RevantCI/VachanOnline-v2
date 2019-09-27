@@ -120,19 +120,9 @@ const Bible = props => {
         >
           {verses.map(item => (
             <span key={item.number}>
-              {item.metadata &&
-              item.metadata[0] &&
-              item.metadata[0]["styling"] &&
-              (item.metadata[0]["styling"][0] === "p" ||
-                item.metadata[0]["styling"][0].startsWith("q")) ? (
-                <p>
-                  {item.number}. {item.text}
-                </p>
-              ) : (
-                <span>
-                  {item.number}. {item.text}
-                </span>
-              )}
+              <span>
+                {item.number}. {item.text}
+              </span>
             </span>
           ))}
         </div>
