@@ -1,6 +1,7 @@
 import API from "../../store/api";
+//import { bibleChapters } from "../../store/bibleData";
 //Function to get the bible versions
-export const getVersions = (setVersions, setValue) => {
+export const getVersions = (setVersions, setValue, setVersionBooks) => {
   API.get("bibles")
     .then(function(response) {
       const versions = response.data;
@@ -13,7 +14,11 @@ export const getVersions = (setVersions, setValue) => {
             versions[0].languageVersions[0].version.code.toUpperCase()
         );
         setValue("sourceId", versions[0].languageVersions[0].sourceId);
-        getBooks(setValue, versions[0].languageVersions[0].sourceId);
+        for (let lang of versions) {
+          for (let ver of lang.languageVersions) {
+            getBooks(setValue, setVersionBooks, ver.sourceId);
+          }
+        }
       }
     })
     .catch(function(error) {
@@ -27,25 +32,28 @@ const resetBookData = setValue => {
   setValue("bookCode", "");
 };
 //Function to get the bible books
-export const getBooks = (setValue, sourceId) => {
-  resetBookData(setValue);
+export const getBooks = (setValue, setVersionBooks, sourceId) => {
+  //resetBookData(setValue);
   API.get("bibles/" + sourceId + "/books")
     .then(function(response) {
       var books = response.data[0].books.sort(
         (a, b) => a.bibleBookID - b.bibleBookID
       );
-      setValue("bookList", books);
+      setVersionBooks(sourceId, books);
+      //setValue("bookList", books);
       setValue("book", books[0].bibleBookFullName);
       setValue("bookCode", books[0].abbreviation);
       setValue("chapter", "1");
-      getChapters(setValue, sourceId, books[0].abbreviation);
+      //getChapters(setValue, sourceId, books[0].abbreviation);
     })
     .catch(function(error) {
       console.log(error);
     });
 };
+//change the logic of this function
+//dont send api call either hardcode it or put data in the get books calls
 //Function to get the book chapters
-export const getChapters = (
+/* export const getChapters = (
   setValue,
   sourceId,
   bookCode,
@@ -69,7 +77,7 @@ export const getChapters = (
     .catch(function(error) {
       console.log(error);
     });
-};
+}; */
 //Function to get the next chapter
 export const nextChapter = (
   setValue,
@@ -87,7 +95,7 @@ export const nextChapter = (
       setValue("book", nextBook.bibleBookFullName);
       setValue("bookCode", nextBook.abbreviation);
       setValue("chapter", "1");
-      getChapters(setValue, sourceId, nextBook.abbreviation);
+      //getChapters(setValue, sourceId, nextBook.abbreviation);
     }
   }
 };
@@ -120,7 +128,7 @@ export const previousChapter = (
     if (prevBook) {
       setValue("book", prevBook.bibleBookFullName);
       setValue("bookCode", prevBook.abbreviation);
-      getChapters(setValue, sourceId, prevBook.abbreviation, true);
+      //getChapters(setValue, sourceId, prevBook.abbreviation, true);
     }
   }
 };

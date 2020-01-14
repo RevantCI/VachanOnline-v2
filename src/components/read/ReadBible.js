@@ -1,12 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import TopBar from "./TopBar";
 import BiblePane from "./BiblePane";
 import BibleMenu from "./BibleMenu";
-import { getBooks } from "../common/utillity";
+//import { getBooks } from "../common/utillity";
 
 const useStyles = makeStyles(theme => ({
   biblePane1: {
@@ -56,7 +55,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const ReadBible = props => {
-  const mobile = useMediaQuery("(max-width:600px)");
   const classes = useStyles();
   //ref to get bible panes 1 & 2
   const bibleText1 = React.useRef();
@@ -134,7 +132,7 @@ const ReadBible = props => {
           versionObj.language.name + "-" + versionObj.version.code.toUpperCase()
         );
         setValue2("sourceId", versionObj.sourceId);
-        getBooks(setValue2, versionObj.sourceId);
+        //getBooks(setValue2, versionObj.sourceId);
       }
     }
   }, [parallelBible, versions, setValue2]);
@@ -205,7 +203,4 @@ const mapDispatchToProps = dispatch => {
       dispatch({ type: actions.SETVALUE, name: name, value: value })
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ReadBible);
+export default connect(mapStateToProps, mapDispatchToProps)(ReadBible);
